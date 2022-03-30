@@ -1,0 +1,98 @@
+<?php
+
+
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+function addUser($FirstName, $LastName, $Email, $Passwrd, $UserID)
+{
+	// db handler
+	global $db;
+	
+	$query = "insert into User values(:FirstName, :LastName, :Email, :Passwrd, :UserID)";
+
+	// execute the sql
+
+	$statement = $db->prepare($query);
+
+	$statement->bindValue(':FirstName', $FirstName);
+	$statement->bindValue(':LastName', $LastName);
+	$statement->bindValue(':Email', $Email);
+	$statement->bindValue(':Passwrd', $Passwrd);
+	$statement->bindValue(':UserID', $UserID);
+
+
+	$statement->execute();
+
+	// release; free the connection to the server so other sql statements may be issued 
+	$statement->closeCursor();
+}
+
+
+function getAllUsers()
+{
+	global $db;
+	$query = "select * from User";
+
+
+// good: use a prepared stement 
+// 1. prepare
+// 2. bindValue & execute
+	$statement = $db->prepare($query);
+	$statement->execute();
+
+	// fetchAll() returns an array of all rows in the result set
+	$results = $statement->fetchAll();   
+
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getUser_byUserID($UserID)
+{
+	global $db;
+	$query = "select * from User where UserID = :UserID";
+	// "select * from friends where UserID = $UserID";
+	
+// 1. prepare
+// 2. bindValue & execute
+	$statement = $db->prepare($query);
+	$statement->bindValue(':UserID', $UserID);
+	$statement->execute();
+
+	// fetch() returns a row
+	$results = $statement->fetch();   
+
+	$statement->closeCursor();
+
+	return $results;	
+}
+
+function updateUser($FirstName, $LastName, $Email, $Passwrd, $UserID)
+{
+	global $db;
+	$query = "update User set FirstName=:FirstName, LastName=:LastName, Email=:Email, Passwrd=:Passwrd where UserID=:UserID";
+	$statement = $db->prepare($query); 
+	$statement->bindValue(':FirstName', $FirstName);
+	$statement->bindValue(':LastName', $LastName);
+	$statement->bindValue(':Email', $Email);
+	$statement->bindValue(':Passwrd', $Passwrd);
+	$statement->bindValue(':UserID',$UserID);
+	$statement->execute();
+	$statement->closeCursor();
+}
+
+function deleteUser($UserID)
+{
+	global $db;
+	$query = "delete from User where UserID=:UserID";
+	$statement = $db->prepare($query); 
+	$statement->bindValue(':UserID', $UserID);
+	$statement->execute();
+	$statement->closeCursor();
+}
+
+?>
