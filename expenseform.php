@@ -11,7 +11,7 @@ error_reporting(E_ALL);
 
 
 
-
+$entryID = $_POST['entryID'];
 
 
 
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {  
       // If the button is clicked and its value is "Add" then call addUser() function
 
-      addExpense($_POST['rent'], $_POST['bills'], $_POST['transportation'], $_POST['foodBeverage'], $_POST['leisure'], $_POST['entryID']);
+      addExpense($_POST['rent'], $_POST['bills'], $_POST['transportation'], $_POST['foodBeverage'], $_POST['leisure'], $entryID);
       $list_of_expenses = getAllExpenses();
     }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update")
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Confirm update")
     {
-      updateExpense($_POST['rent'], $_POST['bills'], $_POST['transportation'], $_POST['foodBeverage'], $_POST['leisure'], $_POST['entryID']);
+      updateExpense($_POST['rent'], $_POST['bills'], $_POST['transportation'], $_POST['foodBeverage'], $_POST['leisure'], $entryID);
       $list_of_expenses = getAllExpenses();
     }
 }
@@ -136,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="row mb-3 mx-3">
     EntryID:
     <input type="number" class="form-control" name="entryID" required 
-            value="<?php if ($expense_to_update!=null) echo $expense_to_update['entryID'] ?>"
+            value="<?php echo $expense_to_update['entryID'] ?>"
     />  
   </div>   
   <input type="submit" value="Add" name="btnAction" class="btn btn-dark" 
@@ -172,13 +172,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td>
       <form action="expenseform.php" method="post">
         <input type="submit" value="Update" name="btnAction" class="btn btn-primary" />
-        <input type="hidden" name="expense_to_update" value="<?php echo $expense['EntryID'] ?>" />      
+        <input type="hidden" name="expense_to_update" value="<?php echo $expense['entryID'] ?>" />      
       </form>
     </td>
     <td>
     <form action="expenseform.php" method="post">
         <input type="submit" value="Delete" name="btnAction" class="btn btn-danger" />
-        <input type="hidden" name="expense_to_delete" value="<?php echo $expense['EntryID'] ?>" />      
+        <input type="hidden" name="expense_to_delete" value="<?php echo $expense['entryID'] ?>" />      
       </form>
     </td> 
   </tr>

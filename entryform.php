@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </div> 
   <div class="row mb-3 mx-3">
     UserID:
-    <input type="number" class="form-control" name="UserID" required 
+    <input type="number" class="form-control" name="current_user" required 
         value= "<?php echo $user_id ?>"
     />
   </div>   
@@ -151,13 +151,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td>
       <form action="entryform.php" method="post">
         <input type="submit" value="Update" name="btnAction" class="btn btn-primary" />
-        <input type="hidden" name="entry_to_update" value="<?php echo $entry['EntryID'] ?>" />      
+        <input type="hidden" name="entry_to_update" value="<?php echo $entry['entryID'] ?>" />      
       </form>
     </td>
     <td>
     <form action="entryform.php" method="post">
         <input type="submit" value="Delete" name="btnAction" class="btn btn-danger" />
-        <input type="hidden" name="entry_to_delete" value="<?php echo $entry['EntryID'] ?>" />      
+        <input type="hidden" name="entry_to_delete" value="<?php echo $entry['entryID'] ?>" />      
       </form>
     </td> 
   </tr>

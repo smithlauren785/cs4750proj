@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function addEntry($entryID,  $UserID, $month, $year)
+function addEntry($entryID,  $user_id, $month, $year)
 {
 	// db handler
 	global $db;
@@ -20,7 +20,7 @@ function addEntry($entryID,  $UserID, $month, $year)
 
 	$statement->bindValue(':entryID', $entryID);
 	$statement->bindValue(':month', $month);
-	$statement->bindValue(':UserID', $UserID);
+	$statement->bindValue(':UserID', $user_id);
 	$statement->bindValue(':year', $year);
 
 
