@@ -8,10 +8,14 @@ error_reporting(E_ALL);
 
 function addUser($FirstName, $LastName, $Email, $Passwrd, $UserID)
 {
+	
 	// db handler
 	global $db;
 	
 	$query = "insert into User values(:FirstName, :LastName, :Email, :Passwrd, :UserID)";
+
+	// hash password
+	$hash = password_hash($Passwrd, PASSWORD_DEFAULT);
 
 	// execute the sql
 
@@ -20,7 +24,7 @@ function addUser($FirstName, $LastName, $Email, $Passwrd, $UserID)
 	$statement->bindValue(':FirstName', $FirstName);
 	$statement->bindValue(':LastName', $LastName);
 	$statement->bindValue(':Email', $Email);
-	$statement->bindValue(':Passwrd', $Passwrd);
+	$statement->bindValue(':Passwrd', $hash);
 	$statement->bindValue(':UserID', $UserID);
 
 
@@ -29,7 +33,6 @@ function addUser($FirstName, $LastName, $Email, $Passwrd, $UserID)
 	// release; free the connection to the server so other sql statements may be issued 
 	$statement->closeCursor();
 }
-
 
 function getAllUsers()
 {
