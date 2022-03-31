@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Lauren Smith, Laurel Yano, Franny Pirozzoli, Henry Freck
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
