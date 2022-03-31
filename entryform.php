@@ -3,13 +3,17 @@ require('connectdb.php');
 require('entry-db.php');
 
 
+
+
+$user_id = $_POST['current_user'];
+
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 
-$UserID = 0;
-$list_of_entries = getAllEntriesForUser($UserID);
+$list_of_entries = getAllEntriesForUser($user_id);
 $entry_to_update = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -17,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add")
     {  
 
-      addEntry($_POST['entryID'], $_POST['UserID'], $_POST['month'], $_POST['year']);
-      $list_of_entries = getAllEntriesForUser($_POST['UserID']);
+      addEntry($_POST['entryID'], $user_id, $_POST['month'], $_POST['year']);
+      $list_of_entries = getAllEntriesForUser($user_id);
     }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update")
     {  
@@ -30,13 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete")
     {
       deleteEntry($_POST['entry_to_delete']);
-      $list_of_entries = getAllEntriesForUser($_POST['UserID']);
+      $list_of_entries = getAllEntriesForUser($user_id);
     }
 
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Confirm update")
     {
-      updateEntry($_POST['entryID'], $_POST['UserID'], $_POST['month'], $_POST['year']);
-      $list_of_entries = getAllEntriesForUser($_POST['UserID']);
+      updateEntry($_POST['entryID'], $user_id, $_POST['month'], $_POST['year']);
+      $list_of_entries = getAllEntriesForUser($user_id);
     }
 }
 ?>
@@ -103,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="row mb-3 mx-3">
     UserID:
     <input type="number" class="form-control" name="UserID" required 
-        value="<?php if ($entry_to_update!=null) echo $entry_to_update['UserID'] ?>"
+        value= "<?php echo $user_id ?>"
     />
   </div>   
   <div class="row mb-3 mx-3">

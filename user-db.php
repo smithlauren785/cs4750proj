@@ -71,19 +71,6 @@ function getUser_byUserID($UserID)
 	return $results;	
 }
 
-function updateUser($FirstName, $LastName, $Email, $Passwrd, $UserID)
-{
-	global $db;
-	$query = "update User set FirstName=:FirstName, LastName=:LastName, Email=:Email, Passwrd=:Passwrd where UserID=:UserID";
-	$statement = $db->prepare($query); 
-	$statement->bindValue(':FirstName', $FirstName);
-	$statement->bindValue(':LastName', $LastName);
-	$statement->bindValue(':Email', $Email);
-	$statement->bindValue(':Passwrd', $Passwrd);
-	$statement->bindValue(':UserID',$UserID);
-	$statement->execute();
-	$statement->closeCursor();
-}
 
 function deleteUser($UserID)
 {

@@ -3,12 +3,15 @@ require('connectdb.php');
 require('user-db.php');
 
 
+
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $list_of_users = getAllUsers();
-$user_to_update = null;
+
+$current_user = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -19,24 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       addUser($_POST['FirstName'], $_POST['LastName'], $_POST['Email'], $_POST['Passwrd'], $_POST['UserID']);
       $list_of_users = getAllUsers();
     }
-    else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update")
+    else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Choose User")
     {  
      
        
-      $user_to_update = getUser_byUserID($_POST['user_to_update']);
+      $current_user = getUser_byUserID($_POST['current_user']);
 
     }
-    else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete")
-    {
-      deleteUser($_POST['user_to_delete']);
-      $list_of_users = getAllUsers();
-    }
 
-    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Confirm update")
-    {
-      updateUser($_POST['FirstName'], $_POST['LastName'], $_POST['Email'], $_POST['Passwrd'], $_POST['UserID']);
-      $list_of_users = getAllUsers();
-    }
 }
 ?>
 
@@ -93,41 +86,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="row mb-3 mx-3">
     First Name:
     <input type="text" class="form-control" name="FirstName" required 
-            value="<?php if ($user_to_update!=null) echo $user_to_update['FirstName'] ?>"
+            value="<?php if ($current_user!=null) echo $current_user['FirstName'] ?>"
     />        
   </div>  
   <div class="row mb-3 mx-3">
     Last Name:
     <input type="text" class="form-control" name="LastName" 
-            value="<?php if ($user_to_update!=null) echo $user_to_update['LastName'] ?>"
+            value="<?php if ($current_user!=null) echo $current_user['LastName'] ?>"
     /> 
   </div>  
   <div class="row mb-3 mx-3">
     Email:
     <input type="text" class="form-control" name="Email" required 
-            value="<?php if ($user_to_update!=null) echo $user_to_update['Email'] ?>"
+            value="<?php if ($current_user!=null) echo $current_user['Email'] ?>"
     />
   </div>
     <div class="row mb-3 mx-3">
     Password:
     <input type="text" class="form-control" name="Passwrd" required 
-            value="<?php if ($user_to_update!=null) echo $user_to_update['Passwrd'] ?>"
+            value="<?php if ($current_user!=null) echo $current_user['Passwrd'] ?>"
     />
   </div>
       <div class="row mb-3 mx-3">
     UserID:
     <input type="text" class="form-control" name="UserID" required 
-            value="<?php if ($user_to_update!=null) echo $user_to_update['UserID'] ?>"
+            value="<?php if ($current_user!=null) echo $current_user['UserID'] ?>"
     />
   </div>  
   <input type="submit" value="Add" name="btnAction" class="btn btn-dark" 
         title="insert a user" />  
-  <input type="submit" value="Confirm update" name="btnAction" class="btn btn-dark" 
-        title="confirm update a user" />  
+
 </form>    
 
 <hr/>
-<h2>List of Users</h2>
+<h2>Or Choose Current User</h2>
 <!-- <div class="row justify-content-center">   -->
 <table class="w3-table w3-bordered w3-card-4" style="width:90%">
   <thead>
@@ -136,8 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="25%">Last Name</th>        
     <th width="20%">Email</th>
     <th width="20%">UserID</th>
-    <th width="12%">Update ?</th>
-    <th width="12%">Delete ?</th> 
+    <th width="12%">Choose</th>
   </tr>
   </thead>
   <?php foreach ($list_of_users as $user): ?>
@@ -147,19 +138,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $user['Email']; ?></td>
     <td><?php echo $user['UserID']; ?></td> 
     <td>
-      <form action="simpleform.php" method="post">
-        <input type="submit" value="Update" name="btnAction" class="btn btn-primary" />
-        <input type="hidden" name="user_to_update" value="<?php echo $user['UserID'] ?>" />      
+      <form action="passwordform.php" method="post">
+        <input type="submit" value="Choose User" name="btnAction" class="btn btn-primary" />
+        <input type="hidden" name="current_user" value="<?php echo $user['UserID'] ?>" />      
       </form>
     </td>
-    <td>
-    <form action="simpleform.php" method="post">
-        <input type="submit" value="Delete" name="btnAction" class="btn btn-danger" />
-        <input type="hidden" name="user_to_delete" value="<?php echo $user['UserID'] ?>" />      
-      </form>
-    </td> 
+  
   </tr>
   <?php endforeach; ?>
+
+
+
 
   
   </table>
@@ -173,6 +162,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <!-- for local -->
   <!-- <script src="your-js-file.js"></script> -->  
   
-</div>    
+</div>   
+
+
+
+
+
+
 </body>
 </html>
