@@ -1,94 +1,77 @@
-
 <?php
 
-
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-function addEntry($entryID,  $user_id, $month, $year)
+function addFriend($entryID, $UserID ,$month, $year)
 {
 	// db handler
 	global $db;
-	
+
+	// write sql
+	// insert into friends values('someone', 'cs', 4)";
 	$query = "insert into entry values(:entryID, :UserID, :month, :year)";
 
-	// execute the sql
+    // execute the sql
 
-	$statement = $db->prepare($query);
-
-	$statement->bindValue(':entryID', $entryID);
-	$statement->bindValue(':month', $month);
-	$statement->bindValue(':UserID', $user_id);
-	$statement->bindValue(':year', $year);
-
-
-	$statement->execute();
-
-	// release; free the connection to the server so other sql statements may be issued 
-	$statement->closeCursor();
-}
-
-
-function getAllEntriesForUser($UserID)
-{
-	global $db;
-	$query = "select * from entry where UserID=:UserID";
-
-
-// good: use a prepared stement 
-// 1. prepare
-// 2. bindValue & execute
-	$statement = $db->prepare($query);
+	//$statement = $db->query($query);   // query() will compile and execute the sql
+    $statement = $db->prepare($query);
+    $statement->bindValue(':entryID', $entryID);
     $statement->bindValue(':UserID', $UserID);
-	$statement->execute();
+    $statement->bindValue(':month', $month);
+    $statement->bindValue(':year', $year);
 
-	// fetchAll() returns an array of all rows in the result set
-	$results = $statement->fetchAll();   
-
-	$statement->closeCursor();
-
-	return $results;
+    $statement->execute();
+    //$statement->closeCursor();
+	// release; free the connection to the server so other sql statements may be issued
+	//$statement->close
 }
 
-function getEntry_byEntryID($entryID)
-{
-	global $db;
-	$query = "select * from entry where entryID = :entryID";
+function getAllFriends(){
+    global $db;
+    $query = "select * from entry";
+    //$statement = $db->query($query);
+    $statement = $db->prepare($query);
+    $statement->execute();
 
-	$statement = $db->prepare($query);
-	$statement->bindValue(':entryID', $entryID);
-	$statement->execute();
+    $results = $statement->fetchAll();
 
-	// fetch() returns a row
-	$results = $statement->fetch();   
-
-	$statement->closeCursor();
-
-	return $results;	
+    $statement->closeCursor();
+    return $results;
 }
 
-function updateEntry($entryID,$UserID, $month, $year)
-{
-	global $db;
-	$query = "update entry set UserID=:UserID, month=:month, year=:year where entryID=:entryID";
-	$statement = $db->prepare($query); 
-	$statement->bindValue(':entryID', $entryID);
+function getFriend_byName($entryID){
+    global $db;
+    $query = "select * from entry where entryID = :entryID";
+    //$statement = $db->query($query);
+    $statement = $db->prepare($query);
+    $statement->bindValue(':entryID', $entryID);
+    $statement->execute();
+
+    $results = $statement->fetch();
+
+    $statement->closeCursor();
+    return $results;
+
+}
+
+function updateFriend($entryID, $UserID, $month, $year){
+    global $db;
+    $query = "update entry set UserID=:UserID, month=:month, year=:year where entryID=:entryID";
+    $statement = $db->prepare($query);
     $statement->bindValue(':UserID', $UserID);
-	$statement->bindValue(':month', $month);
-	$statement->bindValue(':year', $year);
-	$statement->execute();
-	$statement->closeCursor();
+    $statement->bindValue(':month', $month);
+    $statement->bindValue(':year', $year);
+    $statement->bindValue(':entryID', $entryID);
+    $statement->execute();
+    $statement->closeCursor();
+
 }
 
-function deleteEntry($entryID)
-{
-	global $db;
-	$query = "delete from entry where entryID=:entryID";
-	$statement = $db->prepare($query); 
-	$statement->bindValue(':entryID', $entryID);
-	$statement->execute();
-	$statement->closeCursor();
+function deleteFriend($entryID){
+    global $db;
+    $query = "delete from entry where entryID=:entryID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':entryID', $entryID);
+    $statement->execute();
+    $statement->closeCursor();
 }
+
 ?>
