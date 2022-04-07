@@ -10,26 +10,36 @@ error_reporting(E_ALL);
 
 $user_id = $_POST['current_user'];
 
-function chooseUser($Passwrd, $user_id)
+function chooseUser($user_id, $Passwrd)
 {
 	global $db;
-	$query = "select * from User where UserID=:UserID and Passwrd:=Passwrd";
+	$query = "select * from User where UserID = :UserID and Passwrd = :Passwrd";
+	
+// 1. prepare
+// 2. bindValue & execute
 	$statement = $db->prepare($query);
-	$statement->bindValue(':UserID', $user_id); 
+	$statement->bindValue(':UserID', $user_id);
 	$statement->bindValue(':Passwrd', $Passwrd);
 	$statement->execute();
+
+	// fetch() returns a row
+	$results = $statement->fetch();   
+
 	$statement->closeCursor();
+
+	return $results;	
 }
 
 
-
+$verified_user = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Enter Password")
     {
-      chooseUser($_POST['Passwrd'], $_POST['current_user']);
+      $verified_user = chooseUser($_POST['current_user'],$_POST['Passwrd']);
+	  
     }
 
 }
@@ -40,12 +50,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <body>
 
 
-<form action="entryform.php" method="post">
+<form action="passwordform.php" method="post">
  <p>Enter password for UserID:  <?php echo $user_id ?></p>
  <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
  <p>Password: <input type="text" name="Passwrd" /></p>
- <p><input type="submit" /></p>
+ <p><input type="submit" value="Enter Password" name="btnAction" class="btn btn-primary"/></p>
 </form>
+
+
+<?php if($verified_user != null) : ?>
+	<html>
+<body>
+  <form method="POST" action="entryform.php">
+  <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Create Entry"/>
+  </form>
+</body>
+</html><?php endif; ?>
+
 
 
 

@@ -15,7 +15,7 @@ function addUser($FirstName, $LastName, $Email, $Passwrd, $UserID)
 	$query = "insert into User values(:FirstName, :LastName, :Email, :Passwrd, :UserID)";
 
 	// hash password
-	$hash = password_hash($Passwrd, PASSWORD_DEFAULT);
+	//$hash = password_hash($Passwrd, PASSWORD_DEFAULT);
 
 	// execute the sql
 
@@ -24,7 +24,7 @@ function addUser($FirstName, $LastName, $Email, $Passwrd, $UserID)
 	$statement->bindValue(':FirstName', $FirstName);
 	$statement->bindValue(':LastName', $LastName);
 	$statement->bindValue(':Email', $Email);
-	$statement->bindValue(':Passwrd', $hash);
+	$statement->bindValue(':Passwrd', $Passwrd);
 	$statement->bindValue(':UserID', $UserID);
 
 
