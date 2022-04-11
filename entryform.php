@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add")
     {
 
-      addEntry($_POST['entryID'], $user_id, $_POST['month'], $_POST['year']);
+      addEntry($user_id, $_POST['month'], $_POST['year']);
       $list_of_entries = getAllEntriesForUser($user_id);
     }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update")
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Confirm update")
     {
-      updateEntry($_POST['entryID'], $user_id, $_POST['month'], $_POST['year']);
+      updateEntry($_POST['entry_to_update'], $user_id, $_POST['month'], $_POST['year']);
       $list_of_entries = getAllEntriesForUser($user_id);
     }
 }
@@ -100,12 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
   <form name="mainForm" action="entryform.php" method="post">   
   <div class="row mb-3 mx-3">
-    EntryID:
-    <input type="number" class="form-control" name="entryID" required 
-            value="<?php if ($entry_to_update!=null) echo $entry_to_update['entryID'] ?>"
-    />    
-  </div> 
-  <div class="row mb-3 mx-3">
     UserID:
     <input type="number" class="form-control" name="current_user" required 
         value= "<?php echo $user_id ?>"
@@ -124,9 +118,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     />
   </div>
   <input type="submit" value="Add" name="btnAction" class="btn btn-dark" 
-        title="insert an entry" />  
+        title="insert an entry" /> 
   <input type="submit" value="Confirm update" name="btnAction" class="btn btn-dark" 
         title="confirm update an entry" />  
+  <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+  <input type="text" value="<?= $entry_to_update['entryID']?>" style="display:none" name="entry_to_update" />
+
 </form>    
 
 <hr/>
@@ -139,8 +136,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="25%">Month</th>        
     <th width="18%">Year</th>
     <th width="18%">UserID</th>
-    <th width="10%">Update ?</th>
-    <th width="10%">Delete ?</th> 
+    <th width="10%">Update</th>
+    <th width="10%">Delete</th> 
   </tr>
   </thead>
   <?php foreach ($list_of_entries as $entry): ?>
@@ -152,12 +149,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td>
       <form action="entryform.php" method="post">
         <input type="submit" value="Update" name="btnAction" class="btn btn-primary" />
+        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
         <input type="hidden" name="entry_to_update" value="<?php echo $entry['entryID'] ?>" />      
       </form>
     </td>
     <td>
     <form action="entryform.php" method="post">
         <input type="submit" value="Delete" name="btnAction" class="btn btn-danger" />
+        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
         <input type="hidden" name="entry_to_delete" value="<?php echo $entry['entryID'] ?>" />      
       </form>
     </td> 

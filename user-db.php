@@ -6,13 +6,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function addUser($FirstName, $LastName, $Email, $Passwrd, $UserID)
+function addUser($FirstName, $LastName, $Email, $Passwrd)
 {
 	
 	// db handler
 	global $db;
 	
-	$query = "insert into User values(:FirstName, :LastName, :Email, :Passwrd, :UserID)";
+	$query = "insert into User (FirstName, LastName, Email, Passwrd) values(:FirstName, :LastName, :Email, :Passwrd)";
 
 	// hash password
 	//$hash = password_hash($Passwrd, PASSWORD_DEFAULT);
@@ -25,7 +25,6 @@ function addUser($FirstName, $LastName, $Email, $Passwrd, $UserID)
 	$statement->bindValue(':LastName', $LastName);
 	$statement->bindValue(':Email', $Email);
 	$statement->bindValue(':Passwrd', $Passwrd);
-	$statement->bindValue(':UserID', $UserID);
 
 
 	$statement->execute();
