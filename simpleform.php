@@ -16,16 +16,16 @@ $current_user = null;
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add")
-    {  
+    {
       // If the button is clicked and its value is "Add" then call addUser() function
 
       addUser($_POST['FirstName'], $_POST['LastName'], $_POST['Email'], $_POST['Passwrd'], $_POST['UserID']);
       $list_of_users = getAllUsers();
     }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Choose User")
-    {  
-     
-       
+    {
+
+
       $current_user = getUser_byUserID($_POST['current_user']);
 
     }

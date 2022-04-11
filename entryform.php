@@ -20,16 +20,16 @@ $entry_to_update = null;
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add")
-    {  
+    {
 
       addEntry($_POST['entryID'], $user_id, $_POST['month'], $_POST['year']);
       $list_of_entries = getAllEntriesForUser($user_id);
     }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update")
-    {  
-     
-       
-      $entry_to_update = getEntry_byEntryID($_POST['entry_to_update']);
+    {
+
+
+      $entry_to_update = getEntry_byName($_POST['entry_to_update']);
 
     }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete")

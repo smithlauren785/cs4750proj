@@ -12,14 +12,14 @@ function addExpense($rent, $bills, $transportation, $leisure, $foodBeverage, $en
 {
 	// db handler
 	global $db;
-	
+
 	$query = "insert into Expenses values( :rent, :bills, :transportation, :leisure, :foodBeverage, :entryID)";
 
 	// execute the sql
 
 	$statement = $db->prepare($query);
 
-	
+
 	$statement->bindValue(':rent', $rent);
 	$statement->bindValue(':bills', $bills);
 	$statement->bindValue(':transportation', $transportation);
@@ -32,7 +32,7 @@ function addExpense($rent, $bills, $transportation, $leisure, $foodBeverage, $en
 
 	$statement->execute();
 
-	// release; free the connection to the server so other sql statements may be issued 
+	// release; free the connection to the server so other sql statements may be issued
 	$statement->closeCursor();
 }
 
@@ -43,14 +43,14 @@ function getAllExpenses()
 	$query = "select * from Expenses";
 
 
-// good: use a prepared stement 
+// good: use a prepared stement
 // 1. prepare
 // 2. bindValue & execute
 	$statement = $db->prepare($query);
 	$statement->execute();
 
 	// fetchAll() returns an array of all rows in the result set
-	$results = $statement->fetchAll();   
+	$results = $statement->fetchAll();
 
 	$statement->closeCursor();
 
@@ -67,18 +67,18 @@ function getExpense_byEntryID($entryID)
 	$statement->execute();
 
 	// fetch() returns a row
-	$results = $statement->fetch();   
+	$results = $statement->fetch();
 
 	$statement->closeCursor();
 
-	return $results;	
+	return $results;
 }
 
 function updateExpense($rent, $bills, $transportation, $leisure, $foodBeverage, $entryID)
 {
 	global $db;
 	$query = "update Expenses set  rent=:rent, bills=:bills, transportation=:transportation, leisure=:leisure, foodBeverage=:foodBeverage where entryID=:entryID";
-	$statement = $db->prepare($query); 
+	$statement = $db->prepare($query);
 	$statement->bindValue(':rent', $rent);
 	$statement->bindValue(':bills', $bills);
 	$statement->bindValue(':transportation', $transportation);
@@ -93,7 +93,7 @@ function deleteExpense($entryID)
 {
 	global $db;
 	$query = "delete from Expenses where entryID=:entryID";
-	$statement = $db->prepare($query); 
+	$statement = $db->prepare($query);
 	$statement->bindValue(':entryID', $entryID);
 	$statement->execute();
 	$statement->closeCursor();
