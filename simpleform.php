@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
       // If the button is clicked and its value is "Add" then call addUser() function
 
-      addUser($_POST['FirstName'], $_POST['LastName'], $_POST['Email'], $_POST['Passwrd'], $_POST['UserID']);
+      addUser($_POST['FirstName'], $_POST['LastName'], $_POST['Email'], $_POST['Passwrd']);
       $list_of_users = getAllUsers();
     }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Choose User")
@@ -105,12 +105,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     Password:
     <input type="text" class="form-control" name="Passwrd" required 
             value="<?php if ($current_user!=null) echo $current_user['Passwrd'] ?>"
-    />
-  </div>
-      <div class="row mb-3 mx-3">
-    UserID:
-    <input type="text" class="form-control" name="UserID" required 
-            value="<?php if ($current_user!=null) echo $current_user['UserID'] ?>"
     />
   </div>  
   <input type="submit" value="Add" name="btnAction" class="btn btn-dark" 

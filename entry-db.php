@@ -1,29 +1,34 @@
 <?php
 
-function addEntry($entryID, $UserID, $Month, $Year)
+function deleteEntry($entryID){
+    global $db;
+    $query = "delete from entry where entryID=:entryID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':entryID', $entryID);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+function addEntry($UserID, $month, $year)
 {
-	
 	// db handler
 	global $db;
-	
-	$query = "insert into entry values(:entryID, :UserID, :month, :year)";
 
 
-	// execute the sql
+	$query = "insert into entry (UserID, month, year) values(:UserID, :month, :year)";
 
 	$statement = $db->prepare($query);
 
-	$statement->bindValue(':entryID', $entryID);
 	$statement->bindValue(':UserID', $UserID);
-	$statement->bindValue(':month', $Month);
-	$statement->bindValue(':year', $Year);
-
+	$statement->bindValue(':month', $month);
+	$statement->bindValue(':year', $year);
 
 	$statement->execute();
 
 	// release; free the connection to the server so other sql statements may be issued 
 	$statement->closeCursor();
 }
+
 function getAllEntriesForUser($UserID){
     global $db;
     $query = "select * from entry where UserID=:UserID";
@@ -63,16 +68,8 @@ function updateEntry($entryID, $UserID, $month, $year){
     $statement->bindValue(':entryID', $entryID);
     $statement->execute();
     $statement->closeCursor();
-
 }
 
-function deleteEntry($entryID){
-    global $db;
-    $query = "delete from entry where entryID=:entryID";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':entryID', $entryID);
-    $statement->execute();
-    $statement->closeCursor();
-}
+
 
 ?>
