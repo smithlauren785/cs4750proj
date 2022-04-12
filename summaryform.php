@@ -101,43 +101,14 @@ $expenses_payments = $list_of_expenses + $list_of_payments;
     </tr>
     <?php endforeach; ?>
       </table>
-    <table class="w3-table w3-bordered " style="float:left; width:25%">
+
+
+  <table class="w3-table w3-bordered " style="width:75%">
   <thead>
   <tr style="background-color:#B0B0B0">
-    <th width="25%">Total expenses</th>
 
-
-  </tr>
-  </thead>
-
-    <?php foreach ($list_of_expenses as $expense): ?>
-    <tr>
-    <td><?php echo $expense['rent'] + $expense['bills'] + $expense['transportation'] + $expense['leisure'] + $expense['foodBeverage']; ?></td>
-    </tr>
-    <?php endforeach; ?>
-
-
-  </table>
-  <table class="w3-table w3-bordered " style="float:left; width:25%">
-  <thead>
-  <tr style="background-color:#B0B0B0">
     <th width="25%">Total income</th>
-
-
-  </tr>
-  </thead>
-
-    <?php foreach ($list_of_payments as $payment): ?>
-    <tr>
-    <td><?php echo $payment['wagesAndSalary'] + $payment['NonWageIncome']; ?></td>
-    </tr>
-    <?php endforeach; ?>
-
-
-  </table>
-  <table class="w3-table w3-bordered " style="width:25%">
-  <thead>
-  <tr style="background-color:#B0B0B0">
+    <th width="25%">Total expenses</th>
     <th width="25%">Net income</th>
 
 
@@ -146,6 +117,8 @@ $expenses_payments = $list_of_expenses + $list_of_payments;
 
     <?php foreach ($list_of_net as $net): ?>
     <tr>
+    <td><?php echo $net['wagesAndSalary'] + $net['NonWageIncome']; ?></td>
+    <td><?php echo $net['rent'] + $net['bills'] + $net['transportation'] + $net['leisure'] + $net['foodBeverage']; ?></td>
     <td><?php echo $net['wagesAndSalary'] + $net['NonWageIncome'] - $net['rent'] - $net['bills'] - $net['transportation'] - $net['leisure'] - $net['foodBeverage'] ; ?></td>
     </tr>
     <?php endforeach; ?>
