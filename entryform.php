@@ -7,6 +7,13 @@ require('entry-db.php');
 
 
 $user_id = $_POST['current_user'];
+$entryID_to_update = $_POST['entryID_to_update'];
+$rent_to_update = $_POST['rent_to_update'];
+$bills_to_update = $_POST['bills_to_update'];
+$transportation_to_update = $_POST['transportation_to_update'];
+$leisure_to_update = $_POST['leisure_to_update'];
+$foodBeverage_to_update = $_POST['foodBeverage_to_update'];
+
 
 
 ini_set('display_errors', 1);
@@ -233,8 +240,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update Expense")
     {  
      
-       
-      $expense_to_update = getExpense_byEntryID($_POST['expense_to_update']);
+       $entry_to_edit['entryID'] = $entryID_to_update;
+      $expense_to_update = getExpense_byEntryID($_POST['entryID_to_update']);
 
     }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Expense")
@@ -306,31 +313,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="row mb-3 mx-3">
     Rent:
     <input type="number" class="form-control" name="rent" required 
-            value="<?php if ($expense_to_update!=null) echo $expense_to_update['rent'] ?>"
+            value="<?php if ($rent_to_update!=null) echo $rent_to_update?>"
     />    
   </div>  
   <div class="row mb-3 mx-3">
     Bills:
     <input type="number" class="form-control" name="bills" required 
-            value="<?php if ($expense_to_update!=null) echo $expense_to_update['bills'] ?>"
+            value="<?php if ($bills_to_update!=null) echo $bills_to_update ?>"
     />  
   </div>  
   <div class="row mb-3 mx-3">
     Transportation:
     <input type="number" class="form-control" name="transportation" required 
-            value="<?php if ($expense_to_update!=null) echo $expense_to_update['transportation'] ?>"
+            value="<?php if ($transportation_to_update!=null) echo $transportation_to_update ?>"
     />  
   </div>  
   <div class="row mb-3 mx-3">
     Leisure:
     <input type="number" class="form-control" name="leisure" required 
-            value="<?php if ($expense_to_update!=null) echo $expense_to_update['leisure'] ?>"
+            value="<?php if ($leisure_to_update!=null) echo $leisure_to_update?>"
     />  
   </div> 
   <div class="row mb-3 mx-3">
     Food/Beverage:
     <input type="number" class="form-control" name="foodBeverage" required 
-            value="<?php if ($expense_to_update!=null) echo $expense_to_update['foodBeverage'] ?>"
+            value="<?php if ($foodBeverage_to_update!=null) echo $foodBeverage_to_update ?>"
     />  
   </div>  
   <div class="row mb-3 mx-3">

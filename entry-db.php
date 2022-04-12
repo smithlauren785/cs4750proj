@@ -79,6 +79,8 @@ function updateEntry($entryID, $UserID, $month, $year){
 
 
 
+
+
 # functions for adding, selecting, updating and deleting expenses
 
 function addExpense($rent, $bills, $transportation, $leisure, $foodBeverage, $entryID)
@@ -109,32 +111,12 @@ function addExpense($rent, $bills, $transportation, $leisure, $foodBeverage, $en
 	$statement->closeCursor();
 }
 
+
+
 function getAllExpenses($UserID)
 {
 	global $db;
-	$query = "select * from Expenses where entryID in (select entryID from entry where UserID = :UserID)";
-
-
-// good: use a prepared stement
-// 1. prepare
-// 2. bindValue & execute
-
-	$statement = $db->prepare($query);
-	$statement->bindValue(':UserID', $UserID);
-	$statement->execute();
-
-	// fetchAll() returns an array of all rows in the result set
-	$results = $statement->fetchAll();
-
-	$statement->closeCursor();
-
-	return $results;
-}
-
-function getAllIncome($UserID)
-{
-	global $db;
-	$query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)";
+	$query = "select entry.month, entry.year, Expenses.rent, Expenses.bills, Expenses.transportation, Expenses.leisure, Expenses.foodBeverage FROM entry RIGHT OUTER JOIN Expenses ON Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
 
 
 // good: use a prepared stement
@@ -230,6 +212,30 @@ function addPayment($wagesAndSalary, $NonWageIncome, $entryID)
 	// release; free the connection to the server so other sql statements may be issued
 	$statement->closeCursor();
 }
+
+
+function getAllIncome($UserID)
+{
+	global $db;
+	$query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)";
+
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+	$statement = $db->prepare($query);
+	$statement->bindValue(':UserID', $UserID);
+	$statement->execute();
+
+	// fetchAll() returns an array of all rows in the result set
+	$results = $statement->fetchAll();
+
+	$statement->closeCursor();
+
+	return $results;
+}
+
 
 function getAllPayments($UserID)
 {
