@@ -7,6 +7,13 @@ require('entry-db.php');
 
 
 $user_id = $_POST['current_user'];
+$entryID_to_update = $_POST['entryID_to_update'];
+$rent_to_update = $_POST['rent_to_update'];
+$bills_to_update = $_POST['bills_to_update'];
+$transportation_to_update = $_POST['transportation_to_update'];
+$leisure_to_update = $_POST['leisure_to_update'];
+$foodBeverage_to_update = $_POST['foodBeverage_to_update'];
+
 
 
 ini_set('display_errors', 1);
@@ -216,18 +223,25 @@ $expense_to_update = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add Expenses and Payments")
-    {  
-      // If the button is clicked and its value is "Add" then call addUser() function
-      addExpense($_POST['rent'], $_POST['bills'], $_POST['transportation'], $_POST['leisure'], $_POST['foodBeverage'], $_POST['entryID']);
+  if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Submit Expenses And Income")
+  {  
+    addExpense($_POST['rent'], $_POST['bills'], $_POST['transportation'], $_POST['leisure'], $_POST['foodBeverage'], $_POST['entryID']);
+    addPayment($_POST['wagesAndSalary'], $_POST['NonWageIncome'], $_POST['entryID']);
+    addRent($_POST['utilities'], $_POST['baseRent'], $_POST['power'], $_POST['entryID']);
+    addBills($_POST['insurance'], $_POST['phone'], $_POST['subscriptions'], $_POST['entryID']);
+    addTransportation($_POST['carPayment'], $_POST['gas'], $_POST['publicTransportation'], $_POST['airplaneFees'], $_POST['rideshare'], $_POST['entryID']);
+    addLeisure($_POST['gym'], $_POST['clothes'], $_POST['beauty'], $_POST['vacation'], $_POST['entryID']);
+    addFoodBeverage($_POST['eatingOut'], $_POST['groceries'], $_POST['beverages'], $_POST['entryID']);
+    addWagesAndSalary($_POST['wage'], $_POST['tips'], $_POST['monthlySalary'], $_POST['entryID']);
+    addNonWageIncome($_POST['investmentsTotal'], $_POST['allowanceTotal'], $_POST['giftsTotal'], $_POST['scholarshipsTotal'], $_POST['entryID']);
 
-      addPayment($_POST['wagesAndSalary'], $_POST['NonWageIncome'], $_POST['entryID']);
-    }
+  }
+
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update Expense")
     {  
      
-       
-      $expense_to_update = getExpense_byEntryID($_POST['expense_to_update']);
+       $entry_to_edit['entryID'] = $entryID_to_update;
+      $expense_to_update = getExpense_byEntryID($_POST['entryID_to_update']);
 
     }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Expense")
@@ -299,31 +313,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="row mb-3 mx-3">
     Rent:
     <input type="number" class="form-control" name="rent" required 
-            value="<?php if ($expense_to_update!=null) echo $expense_to_update['rent'] ?>"
+            value="<?php if ($rent_to_update!=null) echo $rent_to_update?>"
     />    
   </div>  
   <div class="row mb-3 mx-3">
     Bills:
     <input type="number" class="form-control" name="bills" required 
-            value="<?php if ($expense_to_update!=null) echo $expense_to_update['bills'] ?>"
+            value="<?php if ($bills_to_update!=null) echo $bills_to_update ?>"
     />  
   </div>  
   <div class="row mb-3 mx-3">
     Transportation:
     <input type="number" class="form-control" name="transportation" required 
-            value="<?php if ($expense_to_update!=null) echo $expense_to_update['transportation'] ?>"
+            value="<?php if ($transportation_to_update!=null) echo $transportation_to_update ?>"
     />  
   </div>  
   <div class="row mb-3 mx-3">
     Leisure:
     <input type="number" class="form-control" name="leisure" required 
-            value="<?php if ($expense_to_update!=null) echo $expense_to_update['leisure'] ?>"
+            value="<?php if ($leisure_to_update!=null) echo $leisure_to_update?>"
     />  
   </div> 
   <div class="row mb-3 mx-3">
     Food/Beverage:
     <input type="number" class="form-control" name="foodBeverage" required 
-            value="<?php if ($expense_to_update!=null) echo $expense_to_update['foodBeverage'] ?>"
+            value="<?php if ($foodBeverage_to_update!=null) echo $foodBeverage_to_update ?>"
     />  
   </div>  
   <div class="row mb-3 mx-3">
@@ -351,10 +365,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     />  
   </div>   
  
-        <input type="submit" value="Add Expenses and Payments" name="btnAction" class="btn btn-secondary" />
-        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
-    
-</form>  
+
+
 
 <hr/>
 
@@ -376,6 +388,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
 
+<!-- template found at https://bootsnipp.com/snippets/PEx --> 
 
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
@@ -397,87 +410,87 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         <td>Rent</td>
         <td>Utilities</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="utilities" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Base Rent</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="baseRent" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Power</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="power" style="width: 45px; padding: 1px" value="0"> 
         </td>
       </tr>
       <tr>
         <td>Bills</td>
         <td>Insurance</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="insurance" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Phone</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="phone" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Subscriptions</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="subscriptions" style="width: 45px; padding: 1px" value="0"> 
         </td>
       </tr>
       <tr>
         <td>Transportation</td>
         <td>Car Payment</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="carPayment" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Gas</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="gas" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Public Transportation</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="publicTransportation" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Airplane Fees</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="airplaneFees" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Rideshare</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="rideshare" style="width: 45px; padding: 1px" value="0"> 
         </td>
       </tr>
       <tr>
         <td>Leisure</td>
         <td>Gym</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="gym" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Clothes</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="clothes" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Beauty</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="beauty" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Vacation</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="vacation" style="width: 45px; padding: 1px" value="0"> 
         </td>
       </tr>
       <tr>
         <td>Food/Beverage</td>
         <td>Eating Out</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="eatingOut" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Groceries</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="groceries" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Beverages</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="beverages" style="width: 45px; padding: 1px" value="0"> 
         </td>
       </tr>
     </tbody>
@@ -495,37 +508,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         <td>Wages and Salary</td>
         <td>Wage</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="wage" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Tips</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="tips" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Monthly Salary</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="monthlySalary" style="width: 45px; padding: 1px" value="0"> 
         </td>
       </tr>
       <tr>
         <td>Non-Wage Income</td>
         <td>Investments</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="investmentsTotal" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Allowance</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="allowanceTotal" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Gifts</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="giftsTotal" style="width: 45px; padding: 1px" value="0"> 
         </td>
         <td>Scholarships</td>
         <td>
-          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+          <input type="number" class="form-control" name="scholarshipsTotal" style="width: 45px; padding: 1px" value="0"> 
         </td>
       </tr>
     </tbody>
   </table>
-  <button class="btn btn-block btn-success btn-large">Submit Breakdowns</button>
+  
+  <input type="submit" value="Submit Expenses And Income" name="btnAction" class="btn btn-block btn-success btn-large" />
+  <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
 </div>
+
+
+
+</form>  
