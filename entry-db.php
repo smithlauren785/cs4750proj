@@ -1,5 +1,8 @@
 <?php
 
+# functions for adding, selecting, updating and deleting entry
+
+
 function deleteEntry($entryID){
     global $db;
     $query = "delete from entry where entryID=:entryID";
@@ -70,6 +73,14 @@ function updateEntry($entryID, $UserID, $month, $year){
     $statement->closeCursor();
 }
 
+
+
+
+
+
+
+# functions for adding, selecting, updating and deleting expenses
+
 function addExpense($rent, $bills, $transportation, $leisure, $foodBeverage, $entryID)
 {
 	// db handler
@@ -97,6 +108,80 @@ function addExpense($rent, $bills, $transportation, $leisure, $foodBeverage, $en
 	// release; free the connection to the server so other sql statements may be issued
 	$statement->closeCursor();
 }
+
+function getAllExpenses()
+{
+	global $db;
+	$query = "select * from Expenses";
+
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+	$statement = $db->prepare($query);
+	$statement->execute();
+
+	// fetchAll() returns an array of all rows in the result set
+	$results = $statement->fetchAll();
+
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getExpense_byEntryID($entryID)
+{
+	global $db;
+	$query = "select * from Expenses where entryID = :entryID";
+
+	$statement = $db->prepare($query);
+	$statement->bindValue(':entryID', $entryID);
+	$statement->execute();
+
+	// fetch() returns a row
+	$results = $statement->fetch();
+
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function updateExpense($rent, $bills, $transportation, $leisure, $foodBeverage, $entryID)
+{
+	global $db;
+	$query = "update Expenses set  rent=:rent, bills=:bills, transportation=:transportation, leisure=:leisure, foodBeverage=:foodBeverage where entryID=:entryID";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':rent', $rent);
+	$statement->bindValue(':bills', $bills);
+	$statement->bindValue(':transportation', $transportation);
+	$statement->bindValue(':leisure', $leisure);
+	$statement->bindValue(':foodBeverage', $foodBeverage);
+	$statement->bindValue(':entryID', $entryID);
+	$statement->execute();
+	$statement->closeCursor();
+}
+
+function deleteExpense($entryID)
+{
+	global $db;
+	$query = "delete from Expenses where entryID=:entryID";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':entryID', $entryID);
+	$statement->execute();
+	$statement->closeCursor();
+}
+
+
+
+
+
+
+
+
+
+
+# functions for adding, selecting, updating and deleting income
+
 function addPayment($wagesAndSalary, $NonWageIncome, $entryID)
 {
 	// db handler
@@ -121,6 +206,30 @@ function addPayment($wagesAndSalary, $NonWageIncome, $entryID)
 	// release; free the connection to the server so other sql statements may be issued
 	$statement->closeCursor();
 }
+
+
+# functions for adding, selecting, updating and deleting rent
+
+
+# functions for adding, selecting, updating and deleting bills
+
+# functions for adding, selecting, updating and deleting transportation
+
+# functions for adding, selecting, updating and deleting leisure
+
+# functions for adding, selecting, updating and deleting foodBeverage
+
+# functions for adding, selecting, updating and deleting wagesAndSalary
+
+# functions for adding, selecting, updating and deleting NonWageIncome
+
+
+
+
+
+
+
+
 
 
 ?>
