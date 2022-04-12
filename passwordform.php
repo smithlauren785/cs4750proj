@@ -17,7 +17,7 @@ $user_id = $_POST['current_user'];
 function chooseUser($user_id, $Passwrd)
 {
 	global $db;
-	$query = "select * from User where UserID = :UserID and Passwrd = :Passwrd";
+	$query = "select * from User where UserID = :UserID and Passwrd = PASSWORD(:Passwrd)";
 	
 // 1. prepare
 // 2. bindValue & execute

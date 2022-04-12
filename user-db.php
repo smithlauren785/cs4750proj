@@ -12,7 +12,7 @@ function addUser($FirstName, $LastName, $Email, $Passwrd)
 	// db handler
 	global $db;
 	
-	$query = "insert into User (FirstName, LastName, Email, Passwrd) values(:FirstName, :LastName, :Email, :Passwrd)";
+	$query = "insert into User (FirstName, LastName, Email, Passwrd) values(:FirstName, :LastName, :Email, PASSWORD(:Passwrd))";
 
 	// hash password
 	//$hash = password_hash($Passwrd, PASSWORD_DEFAULT);
