@@ -1,7 +1,7 @@
 <?php
 require('connectdb.php');
 require('user-db.php');
-require('expense-db.php');
+require('entry-db.php');
 
 
 
@@ -11,11 +11,14 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $list_of_users = getAllUsers();
-$list_of_expenses = getAllExpenses();
+
 
 $user_id = $_POST['current_user'];
-
-
+$list_of_expenses = getAllExpenses($user_id);
+$list_of_payments = getAllPayments($user_id);
+$list_of_net = getAllIncome($user_id);
+$list_of_entries = getAllEntriesForUser($user_id);
+$expenses_payments = $list_of_expenses + $list_of_payments;
 
 
 ?>
@@ -68,9 +71,12 @@ $user_id = $_POST['current_user'];
 <body>
 <div class="container">
   <h1><?php
-    echo 'Welcome ', get_current_user();
+    echo 'Welcome ';
 ?> </h1>
-
+<form method="POST" action="simpleform.php">
+  <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Log out"/>
+  </form>
   <form name="mainForm" action="simpleform.php" method="get">
 
 
@@ -79,32 +85,74 @@ $user_id = $_POST['current_user'];
 <hr/>
 
 <!-- <div class="row justify-content-center">   -->
-<table class="w3-table w3-bordered w3-card-4" style="width:90%">
+<table class="w3-table w3-bordered " style="float:left; width:25%">
   <thead>
   <tr style="background-color:#B0B0B0">
-    <th width="25%">Total expenses</th>
-    <th width="25%">Total income</th>
-    <th width="20%">Net income</th>
+    <th width="25%">Month</th>
+    <th width="25%">Year</th>
 
   </tr>
   </thead>
-  <?php foreach ($list_of_expenses as $expense): ?>
-  <tr>
-    <td><?php echo $expense['rent'] + $expense['bills'] + $expense['transportation'] + $expense['leisure'] + $expense['foodBeverage']; ?></td>
 
-    <td>
+    <?php foreach ($list_of_entries as $entry): ?>
+    <tr>
+    <td><?php echo $entry['month']; ?></td>
+    <td><?php echo $entry['year']; ?></td>
+    </tr>
+    <?php endforeach; ?>
+      </table>
+    <table class="w3-table w3-bordered " style="float:left; width:25%">
+  <thead>
+  <tr style="background-color:#B0B0B0">
+    <th width="25%">Total expenses</th>
 
-    </td>
 
   </tr>
-  <?php endforeach; ?>
+  </thead>
 
-
-
-
+    <?php foreach ($list_of_expenses as $expense): ?>
+    <tr>
+    <td><?php echo $expense['rent'] + $expense['bills'] + $expense['transportation'] + $expense['leisure'] + $expense['foodBeverage']; ?></td>
+    </tr>
+    <?php endforeach; ?>
 
 
   </table>
+  <table class="w3-table w3-bordered " style="float:left; width:25%">
+  <thead>
+  <tr style="background-color:#B0B0B0">
+    <th width="25%">Total income</th>
+
+
+  </tr>
+  </thead>
+
+    <?php foreach ($list_of_payments as $payment): ?>
+    <tr>
+    <td><?php echo $payment['wagesAndSalary'] + $payment['NonWageIncome']; ?></td>
+    </tr>
+    <?php endforeach; ?>
+
+
+  </table>
+  <table class="w3-table w3-bordered " style="width:25%">
+  <thead>
+  <tr style="background-color:#B0B0B0">
+    <th width="25%">Net income</th>
+
+
+  </tr>
+  </thead>
+
+    <?php foreach ($list_of_net as $net): ?>
+    <tr>
+    <td><?php echo $net['wagesAndSalary'] + $net['NonWageIncome'] - $net['rent'] - $net['bills'] - $net['transportation'] - $net['leisure'] - $net['foodBeverage'] ; ?></td>
+    </tr>
+    <?php endforeach; ?>
+
+
+  </table>
+
 <!-- </div>   -->
 
 

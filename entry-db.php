@@ -109,16 +109,40 @@ function addExpense($rent, $bills, $transportation, $leisure, $foodBeverage, $en
 	$statement->closeCursor();
 }
 
-function getAllExpenses()
+function getAllExpenses($UserID)
 {
 	global $db;
-	$query = "select * from Expenses";
+	$query = "select * from Expenses where entryID in (select entryID from entry where UserID = :UserID)";
 
 
 // good: use a prepared stement
 // 1. prepare
 // 2. bindValue & execute
+
 	$statement = $db->prepare($query);
+	$statement->bindValue(':UserID', $UserID);
+	$statement->execute();
+
+	// fetchAll() returns an array of all rows in the result set
+	$results = $statement->fetchAll();
+
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getAllIncome($UserID)
+{
+	global $db;
+	$query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)";
+
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+	$statement = $db->prepare($query);
+	$statement->bindValue(':UserID', $UserID);
 	$statement->execute();
 
 	// fetchAll() returns an array of all rows in the result set
@@ -207,6 +231,27 @@ function addPayment($wagesAndSalary, $NonWageIncome, $entryID)
 	$statement->closeCursor();
 }
 
+function getAllPayments($UserID)
+{
+	global $db;
+	$query = "select * from Payment where entryID in (select entryID from entry where UserID = :UserID)";
+
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+	$statement = $db->prepare($query);
+	$statement->bindValue(':UserID', $UserID);
+	$statement->execute();
+
+	// fetchAll() returns an array of all rows in the result set
+	$results = $statement->fetchAll();
+
+	$statement->closeCursor();
+
+	return $results;
+}
 
 # functions for adding, selecting, updating and deleting rent
 

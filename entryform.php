@@ -100,7 +100,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   
   <!-- include your CSS -->
   <!-- <link rel="stylesheet" href="custom.css" />  -->
-       
+       <form method="POST" action="summaryform.php">
+  <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Go to account"/>
+  </form>
 </head>
 
 <body>
@@ -151,11 +154,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </tr>
   </thead>
   <?php foreach ($list_of_entries as $entry): ?>
-  <tr>
+ <tr>
     <td><?php echo $entry['month']; ?></td>
     <td><?php echo $entry['year']; ?></td>
-    <td><?php echo $entry['UserID']; ?></td> 
+    <td><?php echo $entry['UserID']; ?></td>
     <td>
+
       <form action="entryform.php" method="post">
         <input type="submit" value="Update" name="btnAction" class="btn btn-primary" />
         <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
