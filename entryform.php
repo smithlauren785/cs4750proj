@@ -367,3 +367,161 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </div>    
 </body>
 </html>
+
+
+
+
+
+
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container" style="width:60%">
+  <h1>Expense and Income Breakdown</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          <h3>Expenses</h3>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Rent</td>
+        <td>Utilities</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Base Rent</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Power</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+      </tr>
+      <tr>
+        <td>Bills</td>
+        <td>Insurance</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Phone</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Subscriptions</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+      </tr>
+      <tr>
+        <td>Transportation</td>
+        <td>Car Payment</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Gas</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Public Transportation</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Airplane Fees</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Rideshare</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+      </tr>
+      <tr>
+        <td>Leisure</td>
+        <td>Gym</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Clothes</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Beauty</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Vacation</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+      </tr>
+      <tr>
+        <td>Food/Beverage</td>
+        <td>Eating Out</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Groceries</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Beverages</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          <h3>Income</h3>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Wages and Salary</td>
+        <td>Wage</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Tips</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Monthly Salary</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+      </tr>
+      <tr>
+        <td>Non-Wage Income</td>
+        <td>Investments</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Allowance</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Gifts</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+        <td>Scholarships</td>
+        <td>
+          <input type="number" style="width: 45px; padding: 1px" value="0"> 
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-block btn-success btn-large">Submit Breakdowns</button>
+</div>
