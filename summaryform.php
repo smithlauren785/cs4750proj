@@ -13,6 +13,7 @@ error_reporting(E_ALL);
 $list_of_users = getAllUsers();
 $list_of_expenses = getAllExpenses();
 
+$user_id = $_POST['current_user'];
 $current_user = null;
 
 
@@ -84,21 +85,15 @@ $current_user = null;
     <th width="25%">Total expenses</th>
     <th width="25%">Total income</th>
     <th width="20%">Net income</th>
-    <th width="20%">UserID</th>
-    <th width="12%">Choose</th>
+
   </tr>
   </thead>
   <?php foreach ($list_of_expenses as $expense): ?>
   <tr>
-    <td><?php echo $expense['rent']; ?></td>
-    <td><?php echo $user['LastName']; ?></td>
-    <td><?php echo $user['Email']; ?></td>
-    <td><?php echo $user['UserID']; ?></td>
+    <td><?php echo $expense['rent'] + $expense['bills'] + $expense['transportation'] + $expense['leisure'] + $expense['foodBeverage']; ?></td>
+
     <td>
-      <form action="passwordform.php" method="post">
-        <input type="submit" value="Choose User" name="btnAction" class="btn btn-primary" />
-        <input type="hidden" name="current_user" value="<?php echo $user['UserID'] ?>" />
-      </form>
+
     </td>
 
   </tr>
@@ -119,6 +114,25 @@ $current_user = null;
 
   <!-- for local -->
   <!-- <script src="your-js-file.js"></script> -->
+
+
+    <form action="entryform.php" method="post">
+        <input type="submit" value="Submit new entry" name="btnAction" class="btn btn-primary" />
+        <input type="hidden" name="current_user" value="<?php echo $user['UserID'] ?>" />
+      </form>
+
+
+  </tr>
+
+
+
+
+
+
+
+  </table>
+
+
 
 </div>
 
