@@ -85,28 +85,14 @@ $expenses_payments = $list_of_expenses + $list_of_payments;
 <hr/>
 
 <!-- <div class="row justify-content-center">   -->
-<table class="w3-table w3-bordered " style="float:left; width:25%">
+
+
+
+  <table class="w3-table w3-bordered " style="width:100%">
   <thead>
   <tr style="background-color:#B0B0B0">
     <th width="25%">Month</th>
     <th width="25%">Year</th>
-
-  </tr>
-  </thead>
-
-    <?php foreach ($list_of_entries as $entry): ?>
-    <tr>
-    <td><?php echo $entry['month']; ?></td>
-    <td><?php echo $entry['year']; ?></td>
-    </tr>
-    <?php endforeach; ?>
-      </table>
-
-
-  <table class="w3-table w3-bordered " style="width:75%">
-  <thead>
-  <tr style="background-color:#B0B0B0">
-
     <th width="25%">Total income</th>
     <th width="25%">Total expenses</th>
     <th width="25%">Net income</th>
@@ -117,6 +103,8 @@ $expenses_payments = $list_of_expenses + $list_of_payments;
 
     <?php foreach ($list_of_net as $net): ?>
     <tr>
+    <td><?php echo $net['month']; ?></td>
+    <td><?php echo $net['year']; ?></td>
     <td><?php echo $net['wagesAndSalary'] + $net['NonWageIncome']; ?></td>
     <td><?php echo $net['rent'] + $net['bills'] + $net['transportation'] + $net['leisure'] + $net['foodBeverage']; ?></td>
     <td><?php echo $net['wagesAndSalary'] + $net['NonWageIncome'] - $net['rent'] - $net['bills'] - $net['transportation'] - $net['leisure'] - $net['foodBeverage'] ; ?></td>
