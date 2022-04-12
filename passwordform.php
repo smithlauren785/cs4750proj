@@ -61,9 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <?php if($verified_user != null) : ?>
 	<html>
 <body>
-  <form method="POST" action="entryform.php">
+  <form method="POST" action="summaryform.php">
   <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
-    <input type="submit" value="Create Entry"/>
+    <input type="submit" value="Go to account"/>
   </form>
 </body>
 </html><?php endif; ?>

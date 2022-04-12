@@ -14,7 +14,7 @@ $list_of_users = getAllUsers();
 $list_of_expenses = getAllExpenses();
 
 $user_id = $_POST['current_user'];
-$current_user = null;
+
 
 
 
@@ -116,10 +116,12 @@ $current_user = null;
   <!-- <script src="your-js-file.js"></script> -->
 
 
-    <form action="entryform.php" method="post">
-        <input type="submit" value="Submit new entry" name="btnAction" class="btn btn-primary" />
-        <input type="hidden" name="current_user" value="<?php echo $user['UserID'] ?>" />
-      </form>
+    <body>
+  <form method="POST" action="entryform.php">
+  <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Create Entry"/>
+  </form>
+</body>
 
 
   </tr>
