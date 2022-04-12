@@ -70,6 +70,57 @@ function updateEntry($entryID, $UserID, $month, $year){
     $statement->closeCursor();
 }
 
+function addExpense($rent, $bills, $transportation, $leisure, $foodBeverage, $entryID)
+{
+	// db handler
+	global $db;
+
+	$query = "insert into Expenses (rent, bills, transportation, leisure, foodBeverage, entryID) values(:rent, :bills, :transportation, :leisure, :foodBeverage, :entryID)";
+
+	// execute the sql
+
+	$statement = $db->prepare($query);
+
+
+	$statement->bindValue(':rent', $rent);
+	$statement->bindValue(':bills', $bills);
+	$statement->bindValue(':transportation', $transportation);
+	$statement->bindValue(':leisure', $leisure);
+	$statement->bindValue(':foodBeverage', $foodBeverage);
+	$statement->bindValue(':entryID', $entryID);
+
+
+
+
+	$statement->execute();
+
+	// release; free the connection to the server so other sql statements may be issued
+	$statement->closeCursor();
+}
+function addPayment($wagesAndSalary, $NonWageIncome, $entryID)
+{
+	// db handler
+	global $db;
+
+	$query = "insert into Payment (wagesAndSalary, NonWageIncome, entryID) values(:wagesAndSalary, :NonWageIncome, :entryID)";
+
+	// execute the sql
+
+	$statement = $db->prepare($query);
+
+
+	$statement->bindValue(':wagesAndSalary', $wagesAndSalary);
+	$statement->bindValue(':NonWageIncome', $NonWageIncome);
+	$statement->bindValue(':entryID', $entryID);
+
+
+
+
+	$statement->execute();
+
+	// release; free the connection to the server so other sql statements may be issued
+	$statement->closeCursor();
+}
 
 
 ?>
