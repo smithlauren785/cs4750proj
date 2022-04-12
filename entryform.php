@@ -24,6 +24,7 @@ error_reporting(E_ALL);
 $list_of_entries = getAllEntriesForUser($user_id);
 $entry_to_update = null;
 $entry_to_edit = null;
+$entryID = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -46,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
     $entry_to_edit = getEntry_byName($_POST['entry_to_edit']);
+    $entryID = $entry_to_edit['entryID'];
 
   }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete")
@@ -221,6 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 $expense_to_update = null;
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Submit Expenses And Income")
@@ -240,8 +243,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update Expense")
     {  
      
-       $entry_to_edit['entryID'] = $entryID_to_update;
-      $expense_to_update = getExpense_byEntryID($_POST['entryID_to_update']);
+      $entryID = $entryID_to_update;
+      $expense_to_update = getExpense_byEntryID($entryID);
 
     }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Expense")
@@ -361,7 +364,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="row mb-3 mx-3">
     EntryID:
     <input type="number" class="form-control" name="entryID" required 
-            value="<?php echo $entry_to_edit['entryID']?>"
+            value="<?php echo $entryID?>"
     />  
   </div>   
  
