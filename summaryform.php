@@ -39,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
 <html>
+<script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
 <head>
   <meta charset="UTF-8">
 
@@ -95,6 +97,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </form>
 
 <hr/>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+</body>
+</html>
 
 <!-- <div class="row justify-content-center">   -->
 
@@ -111,9 +124,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
   </tr>
+
+    <!DOCTYPE html>
+
   </thead>
 
-    <?php foreach ($list_of_net as $net): ?>
+<!DOCTYPE html>
+
+
+
+
+    <?php  foreach ($list_of_net as $net): ?>
     <tr>
     <td><?php echo $net['month']; ?></td>
     <td><?php echo $net['year']; ?></td>
@@ -145,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
   </tr>
-  <?php foreach ($list_of_expenses as $expense): ?>
+  <?php foreach ($list_of_net as $expense): ?>
 
   <tr>
     <td><?php echo $expense['month']; ?></td>
