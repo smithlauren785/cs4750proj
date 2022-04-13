@@ -668,7 +668,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <body>
   <form method="POST" action="entryform.php">
   <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
-    <input type="submit" value="Create Entry"/>
+    <input type="submit" value="Create Entry" class="btn btn-block btn-success btn-large"/>
   </form>
 </body>
 
