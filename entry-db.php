@@ -373,11 +373,33 @@ function addLeisure($gym, $clothes, $beauty, $vacation, $entryID)
     $statement->closeCursor();
 }
 
+function getAllLeisures($UserID)
+{
+    global $db;
+    $query = "select entry.month, entry.year, Leisure.gym, Leisure.clothes, Leisure.beauty, Leisure.vacation FROM entry RIGHT OUTER JOIN Leisure ON Leisure.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':UserID', $UserID);
+    $statement->execute();
+
+    // fetchAll() returns an array of all rows in the result set
+    $results = $statement->fetchAll();
+
+    $statement->closeCursor();
+
+    return $results;
+}
+
+
 # functions for adding, selecting, updating and deleting foodBeverage
 function addFoodBeverage($eatingOut, $groceries, $beverages, $entryID)
 {
     global $db;
-    $query = "insert into foodBeverage (eatingOut, groceries, beverages, entryID) values(:eatingOut, :groceries, :beverages, :entryID)";
+    $query = "insert into FoodBeverage (eatingOut, groceries, beverages, entryID) values(:eatingOut, :groceries, :beverages, :entryID)";
     $statement = $db->prepare($query);
     $statement->bindValue(':eatingOut', $eatingOut);
     $statement->bindValue(':groceries', $groceries);
@@ -385,6 +407,28 @@ function addFoodBeverage($eatingOut, $groceries, $beverages, $entryID)
     $statement->bindValue(':entryID', $entryID);
     $statement->execute();
     $statement->closeCursor();
+}
+
+
+function getAllFoodBeverage($UserID)
+{
+    global $db;
+    $query = "select entry.month, entry.year, FoodBeverage.eatingOut, FoodBeverage.groceries, FoodBeverage.beverages FROM entry RIGHT OUTER JOIN FoodBeverage ON FoodBeverage.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':UserID', $UserID);
+    $statement->execute();
+
+    // fetchAll() returns an array of all rows in the result set
+    $results = $statement->fetchAll();
+
+    $statement->closeCursor();
+
+    return $results;
 }
 
 # functions for adding, selecting, updating and deleting wagesAndSalary
@@ -402,6 +446,27 @@ function addWagesAndSalary($wage, $tips, $monthlySalary, $entryID)
     $statement->closeCursor();
 }
 
+function getAllWagesAndSalary($UserID)
+{
+    global $db;
+    $query = "select entry.month, entry.year, WagesAndSalary.wage, WagesAndSalary.tips, WagesAndSalary.monthlySalary FROM entry RIGHT OUTER JOIN WagesAndSalary ON WagesAndSalary.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':UserID', $UserID);
+    $statement->execute();
+
+    // fetchAll() returns an array of all rows in the result set
+    $results = $statement->fetchAll();
+
+    $statement->closeCursor();
+
+    return $results;
+}
+
 # functions for adding, selecting, updating and deleting NonWageIncome
 
 function addNonWageIncome($investmentsTotal, $allowanceTotal, $giftsTotal, $scholarshipsTotal, $entryID)
@@ -416,5 +481,26 @@ function addNonWageIncome($investmentsTotal, $allowanceTotal, $giftsTotal, $scho
     $statement->bindValue(':entryID', $entryID);
     $statement->execute();
     $statement->closeCursor();
+}
+
+function getAllNonWageIncome($UserID)
+{
+    global $db;
+    $query = "select entry.month, entry.year, NonWageIncome.investmentsTotal, NonWageIncome.allowanceTotal, NonWageIncome.giftsTotal, NonWageIncome.scholarshipsTotal FROM entry RIGHT OUTER JOIN NonWageIncome ON NonWageIncome.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':UserID', $UserID);
+    $statement->execute();
+
+    // fetchAll() returns an array of all rows in the result set
+    $results = $statement->fetchAll();
+
+    $statement->closeCursor();
+
+    return $results;
 }
 ?>

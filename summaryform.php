@@ -23,7 +23,10 @@ $list_of_rents = getAllRents($user_id);
 $list_of_bills = getAllBills($user_id);
 $list_of_transportations = getAllTransportations($user_id);
 $expenses_payments = $list_of_expenses + $list_of_payments;
-
+$list_of_leisures = getAllLeisures($user_id);
+$list_of_foodBeverage = getAllFoodBeverage($user_id);
+$list_of_wagesAndSalary = getAllWagesAndSalary($user_id);
+$list_of_nonWageIncome = getAllNonWageIncome($user_id);
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -277,6 +280,126 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $transportation['carPayment']; ?></td>
     <td><?php echo $transportation['gas']; ?></td>
     <td><?php echo $transportation['publicTransportation']; ?></td>
+
+    <?php endforeach; ?>
+
+    </tr>
+  </table>
+
+  <table class="w3-table w3-bordered " style="width:100%">
+  <thead>
+  <tr style="background-color:#B0B0B0">
+
+    <th width="%">Month</th>
+    <th width="12%">Year</th>
+    <th width="12%">Gym</th>
+    <th width="12%">Clothes</th>
+    <th width="12%">Beauty</th>
+    <th width="12%">Vacation</th>
+
+
+
+  </tr>
+  <hr>
+  <h1> Leisure Breakdown by Month </h1>
+  <?php foreach ($list_of_leisures as $leisure): ?>
+
+  <tr>
+    <td><?php echo $leisure['month']; ?></td>
+    <td><?php echo $leisure['year']; ?></td>
+    <td><?php echo $leisure['gym']; ?></td>
+    <td><?php echo $leisure['clothes']; ?></td>
+    <td><?php echo $leisure['beauty']; ?></td>
+    <td><?php echo $leisure['vacation']; ?></td>
+
+    <?php endforeach; ?>
+
+    </tr>
+  </table>
+
+  <table class="w3-table w3-bordered " style="width:100%">
+  <thead>
+  <tr style="background-color:#B0B0B0">
+
+    <th width="%">Month</th>
+    <th width="12%">Year</th>
+    <th width="12%">Eating Out</th>
+    <th width="12%">Groceries</th>
+    <th width="12%">Beverages</th>
+
+
+
+  </tr>
+  <hr>
+  <h1> Food/Beverage Breakdown by Month </h1>
+  <?php foreach ($list_of_foodBeverage as $foodBeverage): ?>
+
+  <tr>
+    <td><?php echo $foodBeverage['month']; ?></td>
+    <td><?php echo $foodBeverage['year']; ?></td>
+    <td><?php echo $foodBeverage['eatingOut']; ?></td>
+    <td><?php echo $foodBeverage['groceries']; ?></td>
+    <td><?php echo $foodBeverage['beverages']; ?></td>
+
+    <?php endforeach; ?>
+
+    </tr>
+  </table>
+
+  <table class="w3-table w3-bordered " style="width:100%">
+  <thead>
+  <tr style="background-color:#B0B0B0">
+
+    <th width="%">Month</th>
+    <th width="12%">Year</th>
+    <th width="12%">Wage</th>
+    <th width="12%">Tips</th>
+    <th width="12%">Monthly Salary</th>
+
+
+
+  </tr>
+  <hr>
+  <h1> Wages and Salary Breakdown by Month </h1>
+  <?php foreach ($list_of_wagesAndSalary as $wagesAndSalary): ?>
+
+  <tr>
+    <td><?php echo $wagesAndSalary['month']; ?></td>
+    <td><?php echo $wagesAndSalary['year']; ?></td>
+    <td><?php echo $wagesAndSalary['wage']; ?></td>
+    <td><?php echo $wagesAndSalary['tips']; ?></td>
+    <td><?php echo $wagesAndSalary['monthlySalary']; ?></td>
+
+    <?php endforeach; ?>
+
+    </tr>
+  </table>
+
+  <table class="w3-table w3-bordered " style="width:100%">
+  <thead>
+  <tr style="background-color:#B0B0B0">
+
+    <th width="%">Month</th>
+    <th width="12%">Year</th>
+    <th width="12%">Investments</th>
+    <th width="12%">Allowance</th>
+    <th width="12%">Gifts</th>
+    <th width="12%">Scholarships</th>
+
+
+
+  </tr>
+  <hr>
+  <h1> Non-Wage Income Breakdown by Month </h1>
+  <?php foreach ($list_of_nonWageIncome as $nonWageIncome): ?>
+
+  <tr>
+    <td><?php echo $nonWageIncome['month']; ?></td>
+    <td><?php echo $nonWageIncome['year']; ?></td>
+    <td><?php echo $nonWageIncome['investmentsTotal']; ?></td>
+    <td><?php echo $nonWageIncome['allowanceTotal']; ?></td>
+    <td><?php echo $nonWageIncome['giftsTotal']; ?></td>
+    <td><?php echo $nonWageIncome['scholarshipsTotal']; ?></td>
 
     <?php endforeach; ?>
 

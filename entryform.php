@@ -328,7 +328,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="row mb-3 mx-3">
     EntryID:
     <input type="number" class="form-control" name="entryID" required 
-            value="0"
+            value="<?php echo $entry_to_edit['entryID'] ?>"
     />  
   </div>   
  
@@ -345,8 +345,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </div>   
   <div class="row mb-3 mx-3">
     EntryID:
-    <input type="number" class="form-control" name="entryID" value = "0" required 
-            value="<?php echo $entryID?>"
+    <input type="number" class="form-control" name="entryID"  required 
+            value="<?php echo $entry_to_edit['entryID']?>"
     />  
   </div>   
  
