@@ -8,10 +8,10 @@ error_reporting(E_ALL);
 
 function addUser($FirstName, $LastName, $Email, $Passwrd)
 {
-
+	
 	// db handler
 	global $db;
-
+	
 	$query = "insert into User (FirstName, LastName, Email, Passwrd) values(:FirstName, :LastName, :Email, PASSWORD(:Passwrd))";
 
 	// hash password
@@ -29,7 +29,7 @@ function addUser($FirstName, $LastName, $Email, $Passwrd)
 
 	$statement->execute();
 
-	// release; free the connection to the server so other sql statements may be issued
+	// release; free the connection to the server so other sql statements may be issued 
 	$statement->closeCursor();
 }
 
@@ -39,14 +39,14 @@ function getAllUsers()
 	$query = "select * from User";
 
 
-// good: use a prepared stement
+// good: use a prepared stement 
 // 1. prepare
 // 2. bindValue & execute
 	$statement = $db->prepare($query);
 	$statement->execute();
 
 	// fetchAll() returns an array of all rows in the result set
-	$results = $statement->fetchAll();
+	$results = $statement->fetchAll();   
 
 	$statement->closeCursor();
 
@@ -58,7 +58,7 @@ function getUser_byUserID($UserID)
 	global $db;
 	$query = "select * from User where UserID = :UserID";
 	// "select * from friends where UserID = $UserID";
-
+	
 // 1. prepare
 // 2. bindValue & execute
 	$statement = $db->prepare($query);
@@ -66,11 +66,11 @@ function getUser_byUserID($UserID)
 	$statement->execute();
 
 	// fetch() returns a row
-	$results = $statement->fetch();
+	$results = $statement->fetch();   
 
 	$statement->closeCursor();
 
-	return $results;
+	return $results;	
 }
 
 
@@ -78,7 +78,7 @@ function deleteUser($UserID)
 {
 	global $db;
 	$query = "delete from User where UserID=:UserID";
-	$statement = $db->prepare($query);
+	$statement = $db->prepare($query); 
 	$statement->bindValue(':UserID', $UserID);
 	$statement->execute();
 	$statement->closeCursor();

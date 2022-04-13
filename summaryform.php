@@ -27,9 +27,9 @@ $expenses_payments = $list_of_expenses + $list_of_payments;
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update Expense")
-    {
-
-
+    {  
+     
+       
       $expense_to_update = getExpense_byEntryID($_POST['expense_to_update']);
 
     }
@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <!--
   Bootstrap is designed to be responsive to mobile.
   Mobile-first styles are part of the core framework.
+
   width=device-width sets the width of the page to follow the screen-width
   initial-scale=1 sets the initial zoom level when the page is first loaded
   -->
@@ -98,14 +99,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <hr/>
 
 <!-- <div class="row justify-content-center">   -->
-
-
-
-  <table class="w3-table w3-bordered " style="width:100%">
+<table class="w3-table w3-bordered " style="float:left; width:25%">
   <thead>
   <tr style="background-color:#B0B0B0">
     <th width="25%">Month</th>
     <th width="25%">Year</th>
+
+  </tr>
+  </thead>
+
+    <?php foreach ($list_of_entries as $entry): ?>
+    <tr>
+    <td><?php echo $entry['month']; ?></td>
+    <td><?php echo $entry['year']; ?></td>
+    </tr>
+    <?php endforeach; ?>
+      </table>
+
+
+  <table class="w3-table w3-bordered " style="width:75%">
+  <thead>
+  <tr style="background-color:#B0B0B0">
+
     <th width="25%">Total income</th>
     <th width="25%">Total expenses</th>
     <th width="25%">Net income</th>
@@ -116,8 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     <?php foreach ($list_of_net as $net): ?>
     <tr>
-    <td><?php echo $net['month']; ?></td>
-    <td><?php echo $net['year']; ?></td>
     <td><?php echo $net['wagesAndSalary'] + $net['NonWageIncome']; ?></td>
     <td><?php echo $net['rent'] + $net['bills'] + $net['transportation'] + $net['leisure'] + $net['foodBeverage']; ?></td>
     <td><?php echo $net['wagesAndSalary'] + $net['NonWageIncome'] - $net['rent'] - $net['bills'] - $net['transportation'] - $net['leisure'] - $net['foodBeverage'] ; ?></td>
@@ -158,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $expense['transportation']; ?></td>
     <td><?php echo $expense['leisure']; ?></td>
     <td><?php echo $expense['foodBeverage']; ?></td>
-
+  
     <?php endforeach; ?>
 
 
@@ -252,7 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </body>
 
 
-
+ 
 
 
 
