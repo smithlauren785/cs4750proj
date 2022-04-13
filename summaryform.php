@@ -38,23 +38,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
        
       $expense_to_update = getExpense_byEntryID($_POST['expense_to_update']);
 
-    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by month")
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Month")
     {
       $list_of_net = getAllIncomeByMonth($user_id);
 
-    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by year")
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Year")
     {
       $list_of_net = getAllIncomeByYear($user_id);
 
-    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by income")
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Income")
     {
       $list_of_net = getAllIncomeByIncome($user_id);
 
-    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by expenses")
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Expenses")
     {
       $list_of_net = getAllIncomeByExpenses($user_id);
 
-    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by net")
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Net Income")
     {
       $list_of_net = getAllIncomeByNet($user_id);
 
@@ -90,6 +90,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
   <!-- you may also use W3's formats -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
   <!--
   Use a link tag to link an external resource.
@@ -137,49 +143,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <thead>
   <tr style="background-color:#B0B0B0">
     <th width="20%">Month
-    <body>
-    <form method="POST" action="summaryform.php">
-    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
-    <input type="submit" value="Sort by month" name="btnAction"/>
-    </form>
-    </body>
-</th>
+    </th>
     <th width="20%">Year
-    <body>
-    <form method="POST" action="summaryform.php">
-    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
-    <input type="submit" value="Sort by year" name="btnAction"/>
-    </form>
-    </body>
     </th>
     <th width="20%">Total income
-    <body>
-    <form method="POST" action="summaryform.php">
-    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
-    <input type="submit" value="Sort by income" name="btnAction"/>
-    </form>
-    </body>
     </th>
     <th width="20%">Total expenses
-    <body>
-    <form method="POST" action="summaryform.php">
-    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
-    <input type="submit" value="Sort by expenses" name="btnAction"/>
-    </form>
-    </body>
     </th>
     <th width="20%">Net income
-    <body>
-    <form method="POST" action="summaryform.php">
-    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
-    <input type="submit" value="Sort by net" name="btnAction"/>
-    </form>
-    </body>
     </th>
 
 
   </tr>
   </thead>
+<h1> Summary by Month</h1>
+
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Sort by:
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    <button class="dropdown-item" type="button"><body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Month" name="btnAction"/>
+    </form>
+    </body></button>
+    <button class="dropdown-item" type="button"><body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Year" name="btnAction"/>
+    </form>
+    </body></button>
+    <button class="dropdown-item" type="button"><body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Income" name="btnAction"/>
+    </form>
+    </body></button>
+    <button class="dropdown-item" type="button"><body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Expenses" name="btnAction"/>
+    </form>
+    </body></button>
+    <button class="dropdown-item" type="button"><body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Net Income" name="btnAction"/>
+    </form>
+    </body> </button>
+  </div>
+</div>
 
     <?php foreach ($list_of_net as $net): ?>
     <tr>
