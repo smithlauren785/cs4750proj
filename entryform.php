@@ -7,12 +7,7 @@ require('entry-db.php');
 
 
 $user_id = $_POST['current_user'];
-$entryID_to_update = $_POST['entryID_to_update'];
-$rent_to_update = $_POST['rent_to_update'];
-$bills_to_update = $_POST['bills_to_update'];
-$transportation_to_update = $_POST['transportation_to_update'];
-$leisure_to_update = $_POST['leisure_to_update'];
-$foodBeverage_to_update = $_POST['foodBeverage_to_update'];
+
 
 
 

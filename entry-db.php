@@ -220,7 +220,6 @@ function getAllIncome($UserID)
 {
 	global $db;
     $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)";
-
 // good: use a prepared stement
 // 1. prepare
 // 2. bindValue & execute
