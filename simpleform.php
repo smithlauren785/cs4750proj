@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </div>
     <div class="row mb-3 mx-3">
     Password:
-    <input type="text" class="form-control" name="Passwrd" required 
+    <input type="password" class="form-control" name="Passwrd" required 
             value="<?php if ($current_user!=null) echo $current_user['Passwrd'] ?>"
     />
   </div>  

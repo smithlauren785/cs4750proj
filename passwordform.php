@@ -1,5 +1,6 @@
 <?php
 require('connectdb.php');
+require('user-db.php');
 #require('simpleform.php');
 
 
@@ -11,7 +12,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
+$current_user = getUser_byUserID($_POST['current_user']);
 $user_id = $_POST['current_user'];
 
 function chooseUser($user_id, $Passwrd)
@@ -66,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       form {
       border: 5px solid #f1f1f1;
       }
-      input[type=text], input[type=password] {
+      input[type=text], input[type="password"] {
       width: 100%;
       padding: 16px 8px;
       margin: 8px 0;
@@ -117,9 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       <div class="formcontainer">
       
       <div class="container">
-	  <p>Enter password for UserID:  <?php echo $user_id ?></p>
+	  <p>Enter password for :  <?php echo $current_user[1] . $current_user[2]?></p>
 		<input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
- 		<p>Password: <input type="text" name="Passwrd" /></p>
+ 		<p>Password: <input type="password" name="Passwrd" /></p>
  		<p><input type="submit" value="Enter Password" name="btnAction" class="btn btn-primary"/></p>      </div>
 
       </div>
