@@ -58,6 +58,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
       $list_of_net = getAllIncomeByNet($user_id);
 
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Month (desc)")
+    {
+      $list_of_net = getAllIncomeByMonthDesc($user_id);
+
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Year (desc)")
+    {
+      $list_of_net = getAllIncomeByYearDesc($user_id);
+
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Income (desc)")
+    {
+      $list_of_net = getAllIncomeByIncomeDesc($user_id);
+
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Expenses (desc)")
+    {
+      $list_of_net = getAllIncomeByExpensesDesc($user_id);
+
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Net Income (desc)")
+    {
+      $list_of_net = getAllIncomeByNetDesc($user_id);
+
     }
 
   }
@@ -193,7 +213,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <input type="submit" value="Net Income" name="btnAction"/>
     </form>
     </body> </button>
-  </div>
+    </button>
+
+    <button class="dropdown-item" type="button"><body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Month (desc)" name="btnAction"/>
+    </form>
+    </body></button>
+    <button class="dropdown-item" type="button"><body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Year (desc)" name="btnAction"/>
+    </form>
+    </body></button>
+    <button class="dropdown-item" type="button"><body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Income (desc)" name="btnAction"/>
+    </form>
+    </body></button>
+    <button class="dropdown-item" type="button"><body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Expenses (desc)" name="btnAction"/>
+    </form>
+    </body></button>
+    <button class="dropdown-item" type="button"><body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Net Income (desc)" name="btnAction"/>
+    </form>
+    </body> </button>
+
 </div>
 
     <?php foreach ($list_of_net as $net): ?>
