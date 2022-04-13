@@ -20,6 +20,8 @@ $list_of_net = getAllIncome($user_id);
 $list_of_entries = getAllEntriesForUser($user_id);
 $list_of_incomes = getAllPayments($user_id);
 $list_of_rents = getAllRents($user_id);
+$list_of_bills = getAllBills($user_id);
+$list_of_transportations = getAllTransportations($user_id);
 $expenses_payments = $list_of_expenses + $list_of_payments;
 
 
@@ -49,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <!--
   Bootstrap is designed to be responsive to mobile.
   Mobile-first styles are part of the core framework.
-
   width=device-width sets the width of the page to follow the screen-width
   initial-scale=1 sets the initial zoom level when the page is first loaded
   -->
@@ -129,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </table>
 
 
-
+  
   <table class="w3-table w3-bordered " style="width:100%">
   <thead>
   <tr style="background-color:#B0B0B0">
@@ -141,7 +142,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="12%">Transportation</th>
     <th width="12%">Leisure</th>
     <th width="12%">Food and Beverage</th>
-
 
 
 
@@ -162,12 +162,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   
     <?php endforeach; ?>
 
-
     </tr>
   </table>
 
   </hr>
-
 
   <table class="w3-table w3-bordered " style="width:100%">
   <thead>
@@ -177,7 +175,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="12%">Year</th>
     <th width="12%">Wages and Salary</th>
     <th width="12%">Non-Wage Income</th>
-
 
 
 
@@ -194,12 +191,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     <?php endforeach; ?>
 
-
     </tr>
   </table>
 
   </hr>
-
 
   <table class="w3-table w3-bordered " style="width:100%">
   <thead>
@@ -210,7 +205,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="12%">Utilities</th>
     <th width="12%">Base Rent</th>
     <th width="12%">Power</th>
-
 
 
 
@@ -228,6 +222,63 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     <?php endforeach; ?>
 
+    </tr>
+  </table>
+
+  <table class="w3-table w3-bordered " style="width:100%">
+  <thead>
+  <tr style="background-color:#B0B0B0">
+
+    <th width="%">Month</th>
+    <th width="12%">Year</th>
+    <th width="12%">Insurance</th>
+    <th width="12%">Phone</th>
+    <th width="12%">Subscriptions</th>
+
+
+
+  </tr>
+  <hr>
+  <h1> Bills Breakdown by Month </h1>
+  <?php foreach ($list_of_bills as $bill): ?>
+
+  <tr>
+    <td><?php echo $bill['month']; ?></td>
+    <td><?php echo $bill['year']; ?></td>
+    <td><?php echo $bill['insurance']; ?></td>
+    <td><?php echo $bill['phone']; ?></td>
+    <td><?php echo $bill['subscriptions']; ?></td>
+
+    <?php endforeach; ?>
+
+    </tr>
+  </table>
+
+  <table class="w3-table w3-bordered " style="width:100%">
+  <thead>
+  <tr style="background-color:#B0B0B0">
+
+    <th width="%">Month</th>
+    <th width="12%">Year</th>
+    <th width="12%">Insurance</th>
+    <th width="12%">Phone</th>
+    <th width="12%">Subscriptions</th>
+
+
+
+  </tr>
+  <hr>
+  <h1> Transportation Breakdown by Month </h1>
+  <?php foreach ($list_of_transportations as $transportation): ?>
+
+  <tr>
+    <td><?php echo $transportation['month']; ?></td>
+    <td><?php echo $transportation['year']; ?></td>
+    <td><?php echo $transportation['carPayment']; ?></td>
+    <td><?php echo $transportation['gas']; ?></td>
+    <td><?php echo $transportation['publicTransportation']; ?></td>
+
+    <?php endforeach; ?>
 
     </tr>
   </table>
@@ -236,14 +287,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <!-- </div>   -->
 
-
   <!-- CDN for JS bootstrap -->
   <!-- you may also use JS bootstrap to make the page dynamic -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
 
   <!-- for local -->
   <!-- <script src="your-js-file.js"></script> -->
-
 
     <body>
   <form method="POST" action="entryform.php">
@@ -252,7 +301,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </form>
 </body>
 
-
  
 
 
@@ -260,9 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
 
-
   </table>
-
 
 
 </div>

@@ -5,16 +5,13 @@ require('entry-db.php');
 
 
 
-
 $user_id = $_POST['current_user'];
-
 
 
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
 
 $list_of_entries = getAllEntriesForUser($user_id);
 $entry_to_update = null;
@@ -32,14 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update")
     {
 
-
       $entry_to_update = getEntry_byName($_POST['entry_to_update']);
 
     }
   
   else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Edit Expenses")
   {
-
 
     $entry_to_edit = getEntry_byName($_POST['entry_to_edit']);
     $entryID = $entry_to_edit['entryID'];
@@ -58,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 }
 ?>
-
 
 
 
@@ -196,7 +190,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
 
-
   <!-- CDN for JS bootstrap -->
   <!-- you may also use JS bootstrap to make the page dynamic -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
@@ -208,16 +201,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </body>
 </html>
 
-
 <?php
 
 
 
 
 
-
 $expense_to_update = null;
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -252,7 +242,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 }
 ?>
-
 
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
@@ -302,7 +291,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
 
-
 <div class="container">
   <h1>Enter Expense Totals for <?php if($entry_to_edit != null) : echo $entry_to_edit['month'], "/", $entry_to_edit['year']?> <?php endif; ?> </h1>  
 
@@ -310,37 +298,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="row mb-3 mx-3">
     Rent:
     <input type="number" class="form-control" name="rent" required 
-            value="<?php if ($rent_to_update!=null) echo $rent_to_update?>"
+            value="0"
     />    
   </div>  
   <div class="row mb-3 mx-3">
     Bills:
     <input type="number" class="form-control" name="bills" required 
-            value="<?php if ($bills_to_update!=null) echo $bills_to_update ?>"
+            value="0"
     />  
   </div>  
   <div class="row mb-3 mx-3">
     Transportation:
     <input type="number" class="form-control" name="transportation" required 
-            value="<?php if ($transportation_to_update!=null) echo $transportation_to_update ?>"
+            value="0"
     />  
   </div>  
   <div class="row mb-3 mx-3">
     Leisure:
     <input type="number" class="form-control" name="leisure" required 
-            value="<?php if ($leisure_to_update!=null) echo $leisure_to_update?>"
+            value="0"
     />  
   </div> 
   <div class="row mb-3 mx-3">
     Food/Beverage:
     <input type="number" class="form-control" name="foodBeverage" required 
-            value="<?php if ($foodBeverage_to_update!=null) echo $foodBeverage_to_update ?>"
+            value="0"
     />  
   </div>  
   <div class="row mb-3 mx-3">
     EntryID:
     <input type="number" class="form-control" name="entryID" required 
-            value="<?php echo $entry_to_edit['entryID']?>"
+            value="0"
     />  
   </div>   
  
@@ -349,26 +337,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
   <div class="row mb-3 mx-3">
     Wages and Salary:
-    <input type="number" class="form-control" name="wagesAndSalary" required     />    
+    <input type="number" class="form-control" name="wagesAndSalary" value = "0" required     />    
   </div>  
   <div class="row mb-3 mx-3">
     Non-Wage Income:
-    <input type="number" class="form-control" name="NonWageIncome" required     />  
+    <input type="number" class="form-control" name="NonWageIncome" value = "0" required     />  
   </div>   
   <div class="row mb-3 mx-3">
     EntryID:
-    <input type="number" class="form-control" name="entryID" required 
+    <input type="number" class="form-control" name="entryID" value = "0" required 
             value="<?php echo $entryID?>"
     />  
   </div>   
  
 
 
-
 <hr/>
 
 <!-- </div>   -->
-
 
   <!-- CDN for JS bootstrap -->
   <!-- you may also use JS bootstrap to make the page dynamic -->
@@ -380,7 +366,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </div>    
 </body>
 </html>
-
 
 
 
@@ -541,7 +526,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <input type="submit" value="Submit Expenses And Income" name="btnAction" class="btn btn-block btn-success btn-large" />
   <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
 </div>
-
 
 
 </form>  
