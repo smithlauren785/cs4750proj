@@ -243,8 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update Expense")
     {  
      
-      $entryID = $entryID_to_update;
-      $expense_to_update = getExpense_byEntryID($entryID);
+      $expense_to_update = getExpense_byEntryID($expense_to_update['entryID']);
 
     }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Expense")

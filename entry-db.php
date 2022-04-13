@@ -214,6 +214,8 @@ function addPayment($wagesAndSalary, $NonWageIncome, $entryID)
 }
 
 
+
+
 function getAllIncome($UserID)
 {
 	global $db;
@@ -240,7 +242,7 @@ function getAllIncome($UserID)
 function getAllPayments($UserID)
 {
 	global $db;
-	$query = "select * from Payment where entryID in (select entryID from entry where UserID = :UserID)";
+	$query = "select entry.month, entry.year, Payment.wagesAndSalary, Payment.NonWageIncome FROM entry RIGHT OUTER JOIN Payment ON Payment.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
 
 
 // good: use a prepared stement
@@ -272,6 +274,28 @@ function addRent($utilities, $baseRent, $power, $entryID)
     $statement->bindValue(':entryID', $entryID);
     $statement->execute();
     $statement->closeCursor();
+}
+
+function getAllRents($UserID)
+{
+	global $db;
+	$query = "select entry.month, entry.year, Rent.utilities, Rent.baseRent, Rent.power FROM entry RIGHT OUTER JOIN Rent ON Rent.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+	$statement = $db->prepare($query);
+	$statement->bindValue(':UserID', $UserID);
+	$statement->execute();
+
+	// fetchAll() returns an array of all rows in the result set
+	$results = $statement->fetchAll();
+
+	$statement->closeCursor();
+
+	return $results;
 }
 
 # functions for adding, selecting, updating and deleting bills
