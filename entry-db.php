@@ -110,7 +110,7 @@ function addExpense($rent, $bills, $transportation, $leisure, $foodBeverage, $en
 function getAllExpenses($UserID)
 {
     global $db;
-    $query = "select entry.month, entry.year, Expenses.rent, Expenses.bills, Expenses.transportation, Expenses.leisure, Expenses.foodBeverage FROM entry RIGHT OUTER JOIN Expenses ON Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+    $query = "select Expenses.entryID, entry.month, entry.year, Expenses.rent, Expenses.bills, Expenses.transportation, Expenses.leisure, Expenses.foodBeverage FROM entry RIGHT OUTER JOIN Expenses ON Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
 
 // good: use a prepared stement
 // 1. prepare
@@ -440,7 +440,7 @@ function getAllIncomeByNetDESC($UserID)
 function getAllPayments($UserID)
 {
     global $db;
-    $query = "select entry.month, entry.year, Payment.wagesAndSalary, Payment.NonWageIncome FROM entry RIGHT OUTER JOIN Payment ON Payment.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+    $query = "select Payment.entryID, entry.month, entry.year, Payment.wagesAndSalary, Payment.NonWageIncome FROM entry RIGHT OUTER JOIN Payment ON Payment.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
 
 // good: use a prepared stement
 // 1. prepare
@@ -456,6 +456,16 @@ function getAllPayments($UserID)
     $statement->closeCursor();
 
     return $results;
+}
+
+function deletePayment($entryID)
+{
+    global $db;
+    $query = "delete from Payment where entryID=:entryID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':entryID', $entryID);
+    $statement->execute();
+    $statement->closeCursor();
 }
 
 # functions for adding, selecting, updating and deleting rent
@@ -473,10 +483,11 @@ function addRent($utilities, $baseRent, $power, $entryID)
     $statement->closeCursor();
 }
 
+
 function getAllRents($UserID)
 {
     global $db;
-    $query = "select entry.month, entry.year, Rent.utilities, Rent.baseRent, Rent.power FROM entry RIGHT OUTER JOIN Rent ON Rent.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+    $query = "select Rent.entryID, entry.month, entry.year, Rent.utilities, Rent.baseRent, Rent.power FROM entry RIGHT OUTER JOIN Rent ON Rent.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
 
 // good: use a prepared stement
 // 1. prepare
@@ -492,6 +503,15 @@ function getAllRents($UserID)
     $statement->closeCursor();
 
     return $results;
+}
+function deleteRent($entryID)
+{
+    global $db;
+    $query = "delete from Rent where entryID=:entryID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':entryID', $entryID);
+    $statement->execute();
+    $statement->closeCursor();
 }
 
 # functions for adding, selecting, updating and deleting bills
@@ -509,10 +529,20 @@ function addBills($insurance, $phone, $subscriptions, $entryID)
     $statement->closeCursor();
 }
 
+function deleteBills($entryID)
+{
+    global $db;
+    $query = "delete from Bills where entryID=:entryID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':entryID', $entryID);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
 function getAllBills($UserID)
 {
     global $db;
-    $query = "select entry.month, entry.year, Bills.insurance, Bills.phone, Bills.subscriptions FROM entry RIGHT OUTER JOIN Bills ON Bills.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+    $query = "select Bills.entryID, entry.month, entry.year, Bills.insurance, Bills.phone, Bills.subscriptions FROM entry RIGHT OUTER JOIN Bills ON Bills.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
 
 // good: use a prepared stement
 // 1. prepare
@@ -550,7 +580,7 @@ function addTransportation($carPayment, $gas, $publicTransportation, $airplaneFe
 function getAllTransportations($UserID)
 {
     global $db;
-    $query = "select entry.month, entry.year, Transportation.carPayment, Transportation.gas, Transportation.publicTransportation, Transportation.airplaneFees, Transportation.rideshare FROM entry RIGHT OUTER JOIN Transportation ON Transportation.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+    $query = "select Transportation.entryID, entry.month, entry.year, Transportation.carPayment, Transportation.gas, Transportation.publicTransportation, Transportation.airplaneFees, Transportation.rideshare FROM entry RIGHT OUTER JOIN Transportation ON Transportation.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
 
 // good: use a prepared stement
 // 1. prepare
@@ -566,6 +596,16 @@ function getAllTransportations($UserID)
     $statement->closeCursor();
 
     return $results;
+}
+
+function deleteTransportation($entryID)
+{
+    global $db;
+    $query = "delete from Transportation where entryID=:entryID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':entryID', $entryID);
+    $statement->execute();
+    $statement->closeCursor();
 }
 
 # functions for adding, selecting, updating and deleting leisure
@@ -587,7 +627,7 @@ function addLeisure($gym, $clothes, $beauty, $vacation, $entryID)
 function getAllLeisures($UserID)
 {
     global $db;
-    $query = "select entry.month, entry.year, Leisure.gym, Leisure.clothes, Leisure.beauty, Leisure.vacation FROM entry RIGHT OUTER JOIN Leisure ON Leisure.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+    $query = "select Leisure.entryID, entry.month, entry.year, Leisure.gym, Leisure.clothes, Leisure.beauty, Leisure.vacation FROM entry RIGHT OUTER JOIN Leisure ON Leisure.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
 
 // good: use a prepared stement
 // 1. prepare
@@ -603,6 +643,15 @@ function getAllLeisures($UserID)
     $statement->closeCursor();
 
     return $results;
+}
+function deleteLeisure($entryID)
+{
+    global $db;
+    $query = "delete from Leisure where entryID=:entryID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':entryID', $entryID);
+    $statement->execute();
+    $statement->closeCursor();
 }
 
 
@@ -624,7 +673,7 @@ function addFoodBeverage($eatingOut, $groceries, $beverages, $entryID)
 function getAllFoodBeverage($UserID)
 {
     global $db;
-    $query = "select entry.month, entry.year, FoodBeverage.eatingOut, FoodBeverage.groceries, FoodBeverage.beverages FROM entry RIGHT OUTER JOIN FoodBeverage ON FoodBeverage.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+    $query = "select FoodBeverage.entryID, entry.month, entry.year, FoodBeverage.eatingOut, FoodBeverage.groceries, FoodBeverage.beverages FROM entry RIGHT OUTER JOIN FoodBeverage ON FoodBeverage.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
 
 // good: use a prepared stement
 // 1. prepare
@@ -640,6 +689,15 @@ function getAllFoodBeverage($UserID)
     $statement->closeCursor();
 
     return $results;
+}
+function deleteFoodBeverage($entryID)
+{
+    global $db;
+    $query = "delete from FoodBeverage where entryID=:entryID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':entryID', $entryID);
+    $statement->execute();
+    $statement->closeCursor();
 }
 
 # functions for adding, selecting, updating and deleting wagesAndSalary
@@ -660,7 +718,7 @@ function addWagesAndSalary($wage, $tips, $monthlySalary, $entryID)
 function getAllWagesAndSalary($UserID)
 {
     global $db;
-    $query = "select entry.month, entry.year, WagesAndSalary.wage, WagesAndSalary.tips, WagesAndSalary.monthlySalary FROM entry RIGHT OUTER JOIN WagesAndSalary ON WagesAndSalary.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+    $query = "select WagesAndSalary.entryID, entry.month, entry.year, WagesAndSalary.wage, WagesAndSalary.tips, WagesAndSalary.monthlySalary FROM entry RIGHT OUTER JOIN WagesAndSalary ON WagesAndSalary.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
 
 // good: use a prepared stement
 // 1. prepare
@@ -676,6 +734,15 @@ function getAllWagesAndSalary($UserID)
     $statement->closeCursor();
 
     return $results;
+}
+function deleteWagesAndSalary($entryID)
+{
+    global $db;
+    $query = "delete from WagesAndSalary where entryID=:entryID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':entryID', $entryID);
+    $statement->execute();
+    $statement->closeCursor();
 }
 
 # functions for adding, selecting, updating and deleting NonWageIncome
@@ -697,7 +764,7 @@ function addNonWageIncome($investmentsTotal, $allowanceTotal, $giftsTotal, $scho
 function getAllNonWageIncome($UserID)
 {
     global $db;
-    $query = "select entry.month, entry.year, NonWageIncome.investmentsTotal, NonWageIncome.allowanceTotal, NonWageIncome.giftsTotal, NonWageIncome.scholarshipsTotal FROM entry RIGHT OUTER JOIN NonWageIncome ON NonWageIncome.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
+    $query = "select NonWageIncome.entryID, entry.month, entry.year, NonWageIncome.investmentsTotal, NonWageIncome.allowanceTotal, NonWageIncome.giftsTotal, NonWageIncome.scholarshipsTotal FROM entry RIGHT OUTER JOIN NonWageIncome ON NonWageIncome.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
 
 // good: use a prepared stement
 // 1. prepare
@@ -713,5 +780,15 @@ function getAllNonWageIncome($UserID)
     $statement->closeCursor();
 
     return $results;
+}
+
+function deleteNonWageIncome($entryID)
+{
+    global $db;
+    $query = "delete from NonWageIncome where entryID=:entryID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':entryID', $entryID);
+    $statement->execute();
+    $statement->closeCursor();
 }
 ?>

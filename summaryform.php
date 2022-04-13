@@ -79,6 +79,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       $list_of_net = getAllIncomeByNetDesc($user_id);
 
     }
+    else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Expense")
+    {
+      deleteExpense($_POST['expense_to_delete']);
+      $list_of_expenses = getAllExpenses($user_id);
+    }    
+    else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Income")
+    {
+      deletePayment($_POST['income_to_delete']);
+      $list_of_incomes= getAllPayments($user_id);
+    }
+    else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Rent")
+    {
+      deleteRent($_POST['rent_to_delete']);
+      $list_of_rents= getAllRents($user_id);
+    }
+    else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Bills")
+    {
+      deleteBills($_POST['bills_to_delete']);
+      $list_of_bills= getAllBills($user_id);
+    }
+    else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Transportation")
+    {
+      deleteTransportation($_POST['transportation_to_delete']);
+      $list_of_transportations= getAllTransportations($user_id);
+    }
+    else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Leisure")
+    {
+      deleteLeisure($_POST['leisure_to_delete']);
+      $list_of_leisures= getAllLeisures($user_id);
+    }
+    else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Food/Beverage")
+    {
+      deleteFoodBeverage($_POST['foodBeverage_to_delete']);
+      $list_of_foodBeverage= getAllFoodBeverage($user_id);
+    }
+    else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Wages And Salary")
+    {
+      deleteWagesAndSalary($_POST['wagesAndSalary_to_delete']);
+      $list_of_wagesAndSalary= getAllWagesAndSalary($user_id);
+    }
+    else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Non-Wage Income")
+    {
+      deleteNonWageIncome($_POST['NonWageIncome_to_delete']);
+      $list_of_nonWageIncome= getAllNonWageIncome($user_id);
+    }
+
 
   }
 ?>
@@ -274,6 +320,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="12%">Transportation</th>
     <th width="12%">Leisure</th>
     <th width="12%">Food and Beverage</th>
+    <th width="12%">Delete Expense</th>
 
 
 
@@ -291,6 +338,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $expense['transportation']; ?></td>
     <td><?php echo $expense['leisure']; ?></td>
     <td><?php echo $expense['foodBeverage']; ?></td>
+    <td>
+    <form action="summaryform.php" method="post">
+        <input type="submit" value="Delete Expense" name="btnAction" class="btn btn-danger" />
+        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+        <input type="hidden" name="expense_to_delete" value="<?php echo $expense['entryID'] ?>" />      
+      </form>
+    </td> 
   
     <?php endforeach; ?>
 
@@ -307,6 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="12%">Year</th>
     <th width="12%">Wages and Salary</th>
     <th width="12%">Non-Wage Income</th>
+    <th width="12%">Delete Income</th>
 
 
 
@@ -320,6 +375,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $income['year']; ?></td>
     <td><?php echo $income['wagesAndSalary']; ?></td>
     <td><?php echo $income['NonWageIncome']; ?></td>
+    <td>
+    <form action="summaryform.php" method="post">
+        <input type="submit" value="Delete Income" name="btnAction" class="btn btn-danger" />
+        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+        <input type="hidden" name="income_to_delete" value="<?php echo $income['entryID'] ?>" />      
+      </form>
+    </td> 
 
     <?php endforeach; ?>
 
@@ -337,6 +399,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="12%">Utilities</th>
     <th width="12%">Base Rent</th>
     <th width="12%">Power</th>
+    <th width="12%">Delete Rent</th>
 
 
 
@@ -351,6 +414,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $rent['utilities']; ?></td>
     <td><?php echo $rent['baseRent']; ?></td>
     <td><?php echo $rent['power']; ?></td>
+    <td>
+    <form action="summaryform.php" method="post">
+        <input type="submit" value="Delete Rent" name="btnAction" class="btn btn-danger" />
+        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+        <input type="hidden" name="rent_to_delete" value="<?php echo $rent['entryID'] ?>" />      
+      </form>
+    </td> 
 
     <?php endforeach; ?>
 
@@ -366,6 +436,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="12%">Insurance</th>
     <th width="12%">Phone</th>
     <th width="12%">Subscriptions</th>
+    <th width="12%">Delete Bills</th>
 
 
 
@@ -380,6 +451,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $bill['insurance']; ?></td>
     <td><?php echo $bill['phone']; ?></td>
     <td><?php echo $bill['subscriptions']; ?></td>
+    <td>
+    <form action="summaryform.php" method="post">
+        <input type="submit" value="Delete Bills" name="btnAction" class="btn btn-danger" />
+        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+        <input type="hidden" name="bills_to_delete" value="<?php echo $bill['entryID'] ?>" />      
+      </form>
+    </td> 
 
     <?php endforeach; ?>
 
@@ -392,9 +470,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     <th width="%">Month</th>
     <th width="12%">Year</th>
-    <th width="12%">Insurance</th>
-    <th width="12%">Phone</th>
-    <th width="12%">Subscriptions</th>
+    <th width="12%">Car Payment</th>
+    <th width="12%">Gas</th>
+    <th width="12%">Public Transportation</th>
+    <th width="12%">Airplane Fees</th>
+    <th width="12%">Rideshare</th>
+    <th width="12%">Delete Transportation</th>
 
 
 
@@ -409,6 +490,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $transportation['carPayment']; ?></td>
     <td><?php echo $transportation['gas']; ?></td>
     <td><?php echo $transportation['publicTransportation']; ?></td>
+    <td><?php echo $transportation['airplaneFees']; ?></td>
+    <td><?php echo $transportation['rideshare']; ?></td>
+    <td>
+    <form action="summaryform.php" method="post">
+        <input type="submit" value="Delete Transportation" name="btnAction" class="btn btn-danger" />
+        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+        <input type="hidden" name="transportation_to_delete" value="<?php echo $transportation['entryID'] ?>" />      
+      </form>
+    </td> 
 
     <?php endforeach; ?>
 
@@ -425,6 +515,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="12%">Clothes</th>
     <th width="12%">Beauty</th>
     <th width="12%">Vacation</th>
+    <th width="12%">Delete Leisure</th>
 
 
 
@@ -440,6 +531,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $leisure['clothes']; ?></td>
     <td><?php echo $leisure['beauty']; ?></td>
     <td><?php echo $leisure['vacation']; ?></td>
+    <td>
+    <form action="summaryform.php" method="post">
+        <input type="submit" value="Delete Leisure" name="btnAction" class="btn btn-danger" />
+        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+        <input type="hidden" name="leisure_to_delete" value="<?php echo $leisure['entryID'] ?>" />      
+      </form>
+    </td> 
 
     <?php endforeach; ?>
 
@@ -455,6 +553,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="12%">Eating Out</th>
     <th width="12%">Groceries</th>
     <th width="12%">Beverages</th>
+    <th width="12%">Delete Food/Beverage</th>
 
 
 
@@ -469,7 +568,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $foodBeverage['eatingOut']; ?></td>
     <td><?php echo $foodBeverage['groceries']; ?></td>
     <td><?php echo $foodBeverage['beverages']; ?></td>
-
+    <td>
+    <form action="summaryform.php" method="post">
+        <input type="submit" value="Delete Food/Beverage" name="btnAction" class="btn btn-danger" />
+        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+        <input type="hidden" name="foodBeverage_to_delete" value="<?php echo $foodBeverage['entryID'] ?>" />      
+      </form>
+    </td> 
     <?php endforeach; ?>
 
     </tr>
@@ -484,6 +589,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="12%">Wage</th>
     <th width="12%">Tips</th>
     <th width="12%">Monthly Salary</th>
+    <th width="12%">Delete Wages And Salary</th>
 
 
 
@@ -498,7 +604,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $wagesAndSalary['wage']; ?></td>
     <td><?php echo $wagesAndSalary['tips']; ?></td>
     <td><?php echo $wagesAndSalary['monthlySalary']; ?></td>
-
+    <td>
+    <form action="summaryform.php" method="post">
+        <input type="submit" value="Delete Wages And Salary" name="btnAction" class="btn btn-danger" />
+        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+        <input type="hidden" name="wagesAndSalary_to_delete" value="<?php echo $wagesAndSalary['entryID'] ?>" />      
+      </form>
+    </td> 
     <?php endforeach; ?>
 
     </tr>
@@ -514,6 +626,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="12%">Allowance</th>
     <th width="12%">Gifts</th>
     <th width="12%">Scholarships</th>
+    <th width="12%">Delete Non-Wage Income</th>
 
 
 
@@ -529,7 +642,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $nonWageIncome['allowanceTotal']; ?></td>
     <td><?php echo $nonWageIncome['giftsTotal']; ?></td>
     <td><?php echo $nonWageIncome['scholarshipsTotal']; ?></td>
-
+    <td>
+    <form action="summaryform.php" method="post">
+        <input type="submit" value="Delete Non-Wage Income" name="btnAction" class="btn btn-danger" />
+        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+        <input type="hidden" name="NonWageIncome_to_delete" value="<?php echo $nonWageIncome['entryID'] ?>" />      
+      </form>
+    </td> 
     <?php endforeach; ?>
 
     </tr>
