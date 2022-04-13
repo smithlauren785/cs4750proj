@@ -17,8 +17,8 @@ $user_id = $_POST['current_user'];
 function chooseUser($user_id, $Passwrd)
 {
 	global $db;
-	$query = "select * from User where UserID = :UserID and Passwrd = :Passwrd";
-	
+	$query = "select * from User where UserID = :UserID and Passwrd = PASSWORD(:Passwrd)";
+
 // 1. prepare
 // 2. bindValue & execute
 	$statement = $db->prepare($query);
@@ -27,11 +27,11 @@ function chooseUser($user_id, $Passwrd)
 	$statement->execute();
 
 	// fetch() returns a row
-	$results = $statement->fetch();   
+	$results = $statement->fetch();
 
 	$statement->closeCursor();
 
-	return $results;	
+	return $results;
 }
 
 
@@ -39,11 +39,11 @@ $verified_user = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    
+
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Enter Password")
     {
       $verified_user = chooseUser($_POST['current_user'],$_POST['Passwrd']);
-	  
+
     }
 
 }
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <form action="passwordform.php" method="post">
       <h1>Login</h1>
       <div class="formcontainer">
-      
+
       <div class="container">
 	  <p>Enter password for UserID:  <?php echo $user_id ?></p>
 		<input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />

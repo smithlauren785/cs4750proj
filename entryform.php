@@ -1,3 +1,4 @@
+
 <?php
 require('connectdb.php');
 require('entry-db.php');
@@ -6,12 +7,6 @@ require('entry-db.php');
 
 
 $user_id = $_POST['current_user'];
-$entryID_to_update = $_POST['entryID_to_update'];
-$rent_to_update = $_POST['rent_to_update'];
-$bills_to_update = $_POST['bills_to_update'];
-$transportation_to_update = $_POST['transportation_to_update'];
-$leisure_to_update = $_POST['leisure_to_update'];
-$foodBeverage_to_update = $_POST['foodBeverage_to_update'];
 
 
 
@@ -242,8 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update Expense")
     {
 
-      $entryID = $entryID_to_update;
-      $expense_to_update = getExpense_byEntryID($entryID);
+      $expense_to_update = getExpense_byEntryID($expense_to_update['entryID']);
 
     }
     else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete Expense")
