@@ -208,7 +208,7 @@ function addPayment($wagesAndSalary, $NonWageIncome, $entryID)
 function getAllIncome($UserID)
 {
     global $db;
-    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)";
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)";
 
 // good: use a prepared stement
 // 1. prepare
@@ -229,7 +229,7 @@ function getAllIncome($UserID)
 function getAllIncomeByMonth($UserID)
 {
     global $db;
-    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY entry.month";
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY entry.month";
 
 // good: use a prepared stement
 // 1. prepare
@@ -249,7 +249,7 @@ function getAllIncomeByMonth($UserID)
 function getAllIncomeByYear($UserID)
 {
     global $db;
-    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY entry.year";
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY entry.year";
 
 // good: use a prepared stement
 // 1. prepare
@@ -270,7 +270,7 @@ function getAllIncomeByYear($UserID)
 function getAllIncomeByIncome($UserID)
 {
     global $db;
-    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY (Payment.wagesAndSalary + Payment.NonWageIncome)";
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY (Payment.wagesAndSalary + Payment.NonWageIncome)";
 
 // good: use a prepared stement
 // 1. prepare
@@ -291,7 +291,7 @@ function getAllIncomeByIncome($UserID)
 function getAllIncomeByExpenses($UserID)
 {
     global $db;
-    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY (Expenses.rent + Expenses.bills + Expenses.transportation + Expenses.foodBeverage + Expenses.leisure)";
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY (Expenses.rent + Expenses.bills + Expenses.transportation + Expenses.foodBeverage + Expenses.leisure)";
 
 // good: use a prepared stement
 // 1. prepare
@@ -312,7 +312,7 @@ function getAllIncomeByExpenses($UserID)
 function getAllIncomeByNet($UserID)
 {
     global $db;
-    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY ((Payment.wagesAndSalary + Payment.NonWageIncome) - (Expenses.rent + Expenses.bills + Expenses.transportation + Expenses.foodBeverage + Expenses.leisure))";
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY ((Payment.wagesAndSalary + Payment.NonWageIncome) - (Expenses.rent + Expenses.bills + Expenses.transportation + Expenses.foodBeverage + Expenses.leisure))";
 
 // good: use a prepared stement
 // 1. prepare
@@ -334,7 +334,7 @@ function getAllIncomeByNet($UserID)
 function getAllIncomeByMonthDesc($UserID)
 {
     global $db;
-    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY entry.month DESC";
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY entry.month DESC";
 
 // good: use a prepared stement
 // 1. prepare
@@ -354,7 +354,7 @@ function getAllIncomeByMonthDesc($UserID)
 function getAllIncomeByYearDesc($UserID)
 {
     global $db;
-    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY entry.year DESC";
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY entry.year DESC";
 
 // good: use a prepared stement
 // 1. prepare
@@ -375,7 +375,7 @@ function getAllIncomeByYearDesc($UserID)
 function getAllIncomeByIncomeDesc($UserID)
 {
     global $db;
-    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY (Payment.wagesAndSalary + Payment.NonWageIncome) DESC";
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY (Payment.wagesAndSalary + Payment.NonWageIncome) DESC";
 
 // good: use a prepared stement
 // 1. prepare
@@ -396,7 +396,7 @@ function getAllIncomeByIncomeDesc($UserID)
 function getAllIncomeByExpensesDesc($UserID)
 {
     global $db;
-    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY (Expenses.rent + Expenses.bills + Expenses.transportation + Expenses.foodBeverage + Expenses.leisure) DESC";
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY (Expenses.rent + Expenses.bills + Expenses.transportation + Expenses.foodBeverage + Expenses.leisure) DESC";
 
 // good: use a prepared stement
 // 1. prepare
@@ -417,7 +417,7 @@ function getAllIncomeByExpensesDesc($UserID)
 function getAllIncomeByNetDESC($UserID)
 {
     global $db;
-    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY ((Payment.wagesAndSalary + Payment.NonWageIncome) - (Expenses.rent + Expenses.bills + Expenses.transportation + Expenses.foodBeverage + Expenses.leisure)) DESC";
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where entry.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY ((Payment.wagesAndSalary + Payment.NonWageIncome) - (Expenses.rent + Expenses.bills + Expenses.transportation + Expenses.foodBeverage + Expenses.leisure)) DESC";
 
 // good: use a prepared stement
 // 1. prepare
