@@ -226,6 +226,110 @@ function getAllIncome($UserID)
     return $results;
 }
 
+function getAllIncomeByMonth($UserID)
+{
+    global $db;
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY entry.month";
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':UserID', $UserID);
+    $statement->execute();
+
+    // fetchAll() returns an array of all rows in the result set
+    $results = $statement->fetchAll();
+
+    $statement->closeCursor();
+
+    return $results;
+}
+function getAllIncomeByYear($UserID)
+{
+    global $db;
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY entry.year";
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':UserID', $UserID);
+    $statement->execute();
+
+    // fetchAll() returns an array of all rows in the result set
+    $results = $statement->fetchAll();
+
+    $statement->closeCursor();
+
+    return $results;
+}
+
+function getAllIncomeByIncome($UserID)
+{
+    global $db;
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY (Payment.wagesAndSalary + Payment.NonWageIncome)";
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':UserID', $UserID);
+    $statement->execute();
+
+    // fetchAll() returns an array of all rows in the result set
+    $results = $statement->fetchAll();
+
+    $statement->closeCursor();
+
+    return $results;
+}
+
+function getAllIncomeByExpenses($UserID)
+{
+    global $db;
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY (Expenses.rent + Expenses.bills + Expenses.transportation + Expenses.foodBeverage + Expenses.leisure)";
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':UserID', $UserID);
+    $statement->execute();
+
+    // fetchAll() returns an array of all rows in the result set
+    $results = $statement->fetchAll();
+
+    $statement->closeCursor();
+
+    return $results;
+}
+
+function getAllIncomeByNet($UserID)
+{
+    global $db;
+    $query = "select * FROM Expenses RIGHT OUTER JOIN Payment ON Expenses.entryID = Payment.entryID RIGHT OUTER JOIN entry on Expenses.entryID = entry.entryID where Expenses.entryID in (select entryID from entry where UserID = :UserID)  ORDER BY ((Payment.wagesAndSalary + Payment.NonWageIncome) - (Expenses.rent + Expenses.bills + Expenses.transportation + Expenses.foodBeverage + Expenses.leisure))";
+
+// good: use a prepared stement
+// 1. prepare
+// 2. bindValue & execute
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':UserID', $UserID);
+    $statement->execute();
+
+    // fetchAll() returns an array of all rows in the result set
+    $results = $statement->fetchAll();
+
+    $statement->closeCursor();
+
+    return $results;
+}
+
 function getAllPayments($UserID)
 {
     global $db;

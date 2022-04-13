@@ -29,6 +29,7 @@ $list_of_wagesAndSalary = getAllWagesAndSalary($user_id);
 $list_of_nonWageIncome = getAllNonWageIncome($user_id);
 
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update Expense")
@@ -36,6 +37,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
      
        
       $expense_to_update = getExpense_byEntryID($_POST['expense_to_update']);
+
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by month")
+    {
+      $list_of_net = getAllIncomeByMonth($user_id);
+
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by year")
+    {
+      $list_of_net = getAllIncomeByYear($user_id);
+
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by income")
+    {
+      $list_of_net = getAllIncomeByIncome($user_id);
+
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by expenses")
+    {
+      $list_of_net = getAllIncomeByExpenses($user_id);
+
+    }else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by net")
+    {
+      $list_of_net = getAllIncomeByNet($user_id);
 
     }
 
@@ -102,18 +123,59 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <hr/>
 
+
+
 <!-- <div class="row justify-content-center">   -->
+
+
+
+
 
 
 
   <table class="w3-table w3-bordered " style="width:100%">
   <thead>
   <tr style="background-color:#B0B0B0">
-    <th width="25%">Month</th>
-    <th width="25%">Year</th>
-    <th width="25%">Total income</th>
-    <th width="25%">Total expenses</th>
-    <th width="25%">Net income</th>
+    <th width="20%">Month
+    <body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Sort by month" name="btnAction"/>
+    </form>
+    </body>
+</th>
+    <th width="20%">Year
+    <body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Sort by year" name="btnAction"/>
+    </form>
+    </body>
+    </th>
+    <th width="20%">Total income
+    <body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Sort by income" name="btnAction"/>
+    </form>
+    </body>
+    </th>
+    <th width="20%">Total expenses
+    <body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Sort by expenses" name="btnAction"/>
+    </form>
+    </body>
+    </th>
+    <th width="20%">Net income
+    <body>
+    <form method="POST" action="summaryform.php">
+    <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="Sort by net" name="btnAction"/>
+    </form>
+    </body>
+    </th>
 
 
   </tr>
