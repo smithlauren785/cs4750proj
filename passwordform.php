@@ -53,93 +53,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
 <!DOCTYPE html>
-<html>
   <head>
-    <title>Simple login form</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-    <style>
-      html, body {
-      display: flex;
-      justify-content: center;
-      font-family: Roboto, Arial, sans-serif;
-      font-size: 15px;
-      }
-      form {
-      border: 5px solid #f1f1f1;
-      }
-      input[type=text], input[type="password"] {
-      width: 100%;
-      padding: 16px 8px;
-      margin: 8px 0;
-      display: inline-block;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-      }
-      button {
-      background-color: #8ebf42;
-      color: white;
-      padding: 14px 0;
-      margin: 10px 0;
-      border: none;
-      cursor: grabbing;
-      width: 100%;
-      }
-      h1 {
-      text-align:center;
-      fone-size:18;
-      }
-      button:hover {
-      opacity: 0.8;
-      }
-      .formcontainer {
-      text-align: left;
-      margin: 24px 50px 12px;
-      }
-      .container {
-      padding: 16px 0;
-      text-align:left;
-      }
-      span.psw {
-      float: right;
-      padding-top: 0;
-      padding-right: 15px;
-      }
-      /* Change styles for span on extra small screens */
-      @media screen and (max-width: 300px) {
-      span.psw {
-      display: block;
-      float: none;
-      }
-    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
   </head>
+<html>
   <body>
     <form action="passwordform.php" method="post">
+<figure class="text-center">
       <h1>Login</h1>
+
       <div class="formcontainer">
       
       <div class="container">
-	  <p>Enter password for :  <?php echo $current_user[1] . $current_user[2]?></p>
-		<input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
- 		<p>Password: <input type="password" name="Passwrd" /></p>
- 		<p><input type="submit" value="Enter Password" name="btnAction" class="btn btn-primary"/></p>      </div>
+      <h5>Enter password for :  <?php echo $current_user[1] ." ". $current_user[2]?></h5>
+        <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+         <h5>Password: <input type="password" name="Passwrd" /></h5>
+         <p><input type="submit" value="Enter Password" name="btnAction" class="btn btn-primary"/></p>      </div>
 
       </div>
     </form>
 
-	<?php if($verified_user != null) : ?>
+    <?php if($verified_user != null) : ?>
 
   <form method="POST" action="summaryform.php">
   <div class="container">
   <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
-  <button type="submit">Go to Account</button>
-	</div>
+  <p><input type="submit" value="Go to Account" name="btnAction" class="btn btn-primary"/></p>
+    </div>
   </form>
 
-
+</figure>
 
 
   </body>
 </html><?php endif; ?>
+
+
 
 
 
