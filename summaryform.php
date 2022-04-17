@@ -670,6 +670,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
     <input type="submit" value="Create Entry" class="btn btn-block btn-success btn-large"/>
   </form>
+
+  <!--TODO make this all in one form with redirect file if you have time-->
+  <form method="POST" action="graphDisplay.php">
+  <input type="text" value="<?= $_POST['current_user']?>" style="display:none" name="current_user" />
+    <input type="submit" value="View Graph Summary" class="btn btn-block btn-success btn-large"/>
+  </form>
 </body>
 
  
