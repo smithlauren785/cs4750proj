@@ -79,17 +79,15 @@
     $otherIncome = array();
 
     if(empty($list_of_incomes)){
-        $list_of_incomes[] = array('month' => 'No Data yet :', 'year' => '', 'wagesAndSalary' => 0, 'nonWageIncome' =>0);
+        $list_of_incomes[] = array('month' => 'No Data yet :', 'year' => '', 'wagesAndSalary' => 0, 'NonWageIncome' =>0);
     }
 
     foreach ($list_of_incomes as $income):
-        $salary[] = array( "label" => $income['month'].'/'.$income['year'], "y" => $income['wagesAndSalary']);
-        $otherIncome[] = array( "label" => $income['month'].'/'.$income['year'], "y" => $income['NonWageIncome']);
+        $salary[] = array("label" => $income['month'].'/'.$income['year'], "y" => $income['wagesAndSalary']);
+        $otherIncome[] = array("label" => $income['month'].'/'.$income['year'], "y" => $income['NonWageIncome']);
     endforeach;
 
     //Rent Breakdown
-    usort($list_of_rents, "cmp");
-
     $utilities = array();
     $base = array();
     $power = array();
@@ -99,11 +97,13 @@
         $list_of_rents[] = array('month' => 'No Data yet :', 'year' => '', 'utilities' => 0, 'baseRent' =>0, 'power' => 0);
     }
 
+
     foreach ($list_of_rents as $rent):
         $utilities[] = array( "label" => $rent['month'].'/'.$rent['year'], "y" => $rent['utilities']);
         $base[] = array( "label" => $rent['month'].'/'.$rent['year'], "y" => $rent['baseRent']);
         $power[] = array(  "label" => $rent['month'].'/'.$rent['year'], "y" => $rent['power']);
     endforeach;
+
 
     //Bills Breakdown
     usort($list_of_bills, "cmp");
@@ -186,7 +186,7 @@
 
     $wage = array();
     $tips = array();
-    $salary = array();
+    $salaryPay = array();
 
 
     if(empty($list_of_wagesAndSalary)){
@@ -196,7 +196,7 @@
     foreach ($list_of_wagesAndSalary as $rent):
         $wage[] = array( "label" => $rent['month'].'/'.$rent['year'], "y" => $rent['wage']);
         $tips[] = array( "label" => $rent['month'].'/'.$rent['year'], "y" => $rent['tips']);
-        $salary[] = array(  "label" => $rent['month'].'/'.$rent['year'], "y" => $rent['monthlySalary']);
+        $salaryPay[] = array(  "label" => $rent['month'].'/'.$rent['year'], "y" => $rent['monthlySalary']);
     endforeach;
     
     //non wage Breakdown
@@ -209,7 +209,7 @@
 
 
     if(empty($list_of_nonWageIncome)){
-        $list_of_nonWageIncome[] = array('month' => 'No Data yet :', 'year' => '', 'investmentsTotal' => 0, 'allowanceTotal' =>0, 'giftsTotal' => 0, 'scholarshipTotal' => 0);
+        $list_of_nonWageIncome[] = array('month' => 'No Data yet :', 'year' => '', 'investmentsTotal' => 0, 'allowanceTotal' =>0, 'giftsTotal' => 0, 'scholarshipsTotal' => 0);
     }
 
     foreach ($list_of_nonWageIncome as $rent):
@@ -251,6 +251,7 @@
             /** Set axisY properties here*/
                 axisY:{
                 prefix: "$",
+                minimum: 0
                 }    
             });
 
@@ -299,6 +300,7 @@
             /** Set axisY properties here*/
                 axisY:{
                 prefix: "$",
+                minimum: 0
                 }    
             });
 
@@ -328,6 +330,7 @@
             /** Set axisY properties here*/
                 axisY:{
                 prefix: "$",
+                minimum: 0
                 }    
             });
 
@@ -362,6 +365,7 @@
             /** Set axisY properties here*/
                 axisY:{
                 prefix: "$",
+                minimum: 0
                 }    
             });
 
@@ -396,6 +400,7 @@
             /** Set axisY properties here*/
                 axisY:{
                 prefix: "$",
+                minimum: 0
                 }    
             });
 
@@ -443,6 +448,7 @@
             /** Set axisY properties here*/
                 axisY:{
                 prefix: "$",
+                minimum: 0
                 }    
             });
 
@@ -485,6 +491,7 @@
             /** Set axisY properties here*/
                 axisY:{
                 prefix: "$",
+                minimum: 0
                 }    
             });
 
@@ -520,6 +527,7 @@
             /** Set axisY properties here*/
                 axisY:{
                 prefix: "$",
+                minimum: 0
                 }    
             });
 
@@ -548,12 +556,13 @@
             type: "column",
             name: "Monthly Salary", 
             showInLegend: true,               
-            dataPoints: <?php echo json_encode($salary, JSON_NUMERIC_CHECK); ?>
+            dataPoints: <?php echo json_encode($salaryPay, JSON_NUMERIC_CHECK); ?>
             }
             ],
             /** Set axisY properties here*/
                 axisY:{
                 prefix: "$",
+                minimum: 0
                 }    
             });
 
@@ -594,6 +603,7 @@
             /** Set axisY properties here*/
                 axisY:{
                 prefix: "$",
+                minimum: 0
                 }    
             });
 
